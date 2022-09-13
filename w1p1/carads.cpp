@@ -43,29 +43,27 @@ namespace sdds {
 	}
 
 	void Cars::display(bool reset) {
-		
+
 		static int counter;
 		double price = m_price + (m_price * g_taxrate);
 
 		if (reset) {
 			counter = 0;
 		}
-		std::cout << std::setw(3) << std::left << std::fixed << counter << '.';
+		std::cout << std::setw(3) << std::left << std::fixed << ++counter << '.';
 		if (this->m_brand) {
 			std::cout <<
-				std::setw(10) << m_brand << '|' <<
-				std::setw(17) << m_model << '|' <<
-				std::setw(4) << m_year << '|' <<
-				std::setw(12) << std::setprecision(2) << (price);
+				std::setw(10) << m_brand << "|" <<
+				std::setw(16) << m_model << "| " <<
+				std::setw(4) << m_year << " |" <<
+				std::setw(12) << std::right << std::setprecision(2) << (price) << "|";
 			if (m_discount) {
-				std::cout << std::setw(12) << std::right << (price - (price * g_discount));
-			}	
+				std::cout << std::setw(12) << (price - (price * g_discount));
+			}
 			std::cout << std::endl;
-		} 
+		}
 		else std::cout << "No Car" << std::endl;
 
-
-		counter++;
 	}
 
 	char Cars::getStatus() const {

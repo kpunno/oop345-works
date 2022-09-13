@@ -20,10 +20,10 @@ namespace sdds {
 		Cars();
 
 		std::istream& read(std::istream& is);
-		void display(bool reset);
-		char getStatus() const;
 
-		void copyArg(const char* input);
+		void display(bool reset);
+
+		char getStatus() const;
 	};
 }
 
