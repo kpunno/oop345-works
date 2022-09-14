@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cstring>
 #include "carads.h"
 
 
@@ -89,7 +90,7 @@ namespace sdds {
 		if (reset) {
 			counter = 0;
 		}
-		std::cout << std::setw(3) << std::left << std::fixed << ++counter << '.';
+		std::cout << std::setw(2) << std::left << std::fixed << ++counter << ". ";
 		if (this->m_brand) {
 			std::cout <<
 				std::setw(10) << m_brand << "|" <<

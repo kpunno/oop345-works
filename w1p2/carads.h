@@ -1,6 +1,8 @@
 #ifndef CAR_ADS_H_
 #define CAR_ADS_H_
 
+#include <istream>
+
 extern double g_taxrate;
 extern double g_discount;
 
