@@ -90,12 +90,12 @@ namespace sdds {
 		if (reset) {
 			counter = 0;
 		}
-		std::cout << std::setw(2) << std::left << std::fixed << ++counter << ". ";
+		std::cout << std::setw(2) << std::left << std::fixed << ++counter << std::setw(2) << ".";
 		if (this->m_brand) {
 			std::cout <<
-				std::setw(10) << m_brand << "|" <<
-				std::setw(16) << m_model << "| " <<
-				std::setw(4) << m_year << " |" <<
+				std::setw(10) << m_brand << std::setw(2) << "|" <<
+				std::setw(15) << m_model << std::setw(2) << "|" <<
+				std::setw(5) <<  m_year << "|" <<
 				std::setw(12) << std::right << std::setprecision(2) << (price) << "|";
 			if (m_discount) {
 				std::cout << std::setw(12) << (price - (price * g_discount));
