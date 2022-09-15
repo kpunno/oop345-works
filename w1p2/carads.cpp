@@ -1,3 +1,15 @@
+/*
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-09-15
++----------------------------------------------------------------------+
+|  I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments.     |
++----------------------------------------------------------------------+
+*/
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -6,14 +18,11 @@
 #include <cstring>
 #include "carads.h"
 
-
 double g_taxrate = 0;
 double g_discount = 0;
 
 namespace sdds {
 
-	// lists arguments received by command line
-	// saves filenames within cars class
 	void listArgs(int argc, char* argv[]) {
 		std::cout << "Command Line:" << std::endl;
 		std::cout << "--------------------------" << std::endl;
@@ -23,9 +32,7 @@ namespace sdds {
 		std::cout << "--------------------------" << std::endl << std::endl;
 	}
 
-	Cars::Cars() {
-		m_brand = nullptr;
-	}
+	Cars::Cars(){}
 
 	Cars& Cars::operator=(const Cars& car) {
 		if (this != &car) {
@@ -60,17 +67,22 @@ namespace sdds {
 
 	std::istream& Cars::read(std::istream& is) {
 		if (is.good()) {
+
 			// char buffer
 			char temp[100]{};
 
-			
-
 			m_wear = is.get();
+
 			is.get();
+
+			// copy brand string -> buffer
 			is.getline(temp, 1000, ',');
+
+			// delete present memory -> allocate new memory and copy string
 			delete[] m_brand;
 			m_brand = new char[strlen(temp) + 1];
 			strcpy(m_brand, temp);
+
 			is.getline(m_model, 1000, ',');
 			is >> m_year;
 			is.get();
