@@ -3,3 +3,19 @@ Email --- kpunno@myseneca.ca
 ID ------ 150695211
 Section - NCC
 Date ---- 2022-09-15
+
+1) effect of constexpr;
+
+
+
+2) importance of the rule of three;
+
+
+
+3) topics learned in this workshop;
+
+the difference between internal and external linkage citing examples from your code??
+
+what are static variables and how are they useful in your solution??
+
+the changes that you made in upgrading your Cars class in part 2??

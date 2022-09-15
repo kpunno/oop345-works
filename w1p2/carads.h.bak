@@ -25,10 +25,10 @@ namespace sdds {
 
 	class Cars {
 	private:
-		double m_price{};
 		char* m_brand = nullptr;
 		char m_model[16]{};
 		int m_year{};
+		double m_price{};
 		char m_wear{};
 		bool m_discount{};
 
