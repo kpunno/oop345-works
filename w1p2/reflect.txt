@@ -6,11 +6,11 @@ Date ---- 2022-09-15
 
 1) effect of constexpr;
 
-
+constexpr signifies that an expression can be evaluated at compile time. If the associated expression is not able to be evaluated on compilation, the compiler will throw an error. The const qualifier indicates that an expression, if not able to be evaluated at compile time, is able to be evaluated at run-time. 
 
 2) importance of the rule of three;
 
-
+In any class requires a user-defined destructor, copy constructor, or copy assignment operator, it should possess a user-defined variant of each of the three. The primary importance of implementing this rule is to ensure that dynamically allocated memory is seamlessly and respectively allocated between objects.
 
 3) topics learned in this workshop;
 
