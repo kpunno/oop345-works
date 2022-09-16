@@ -8,6 +8,8 @@ Date ---- 2022-09-15
 
 constexpr signifies that an expression can be evaluated at compile time. If the associated expression is not able to be evaluated on compilation, the compiler will throw an error. The const qualifier indicates that an expression, if not able to be evaluated at compile time, is able to be evaluated at run-time. 
 
+The usefulness of this is...
+
 2) importance of the rule of three;
 
 In any class requires a user-defined destructor, copy constructor, or copy assignment operator, it should possess a user-defined variant of each of the three. The primary importance of implementing this rule is to ensure that dynamically allocated memory is seamlessly and respectively allocated between objects.
@@ -18,4 +20,9 @@ the difference between internal and external linkage citing examples from your c
 
 what are static variables and how are they useful in your solution??
 
-the changes that you made in upgrading your Cars class in part 2??
+The static variable held in the Cars class proves to be useful as a 
+
+
+Upgrading the Cars class:
+
+The car brand was upgraded to store memory dynamically offering an optimization to the class in the form of not wasting memory unnecessarily. Using a static array for the storage of strings that vary in length will likely result in wasted memory, that won't be used by strings of shorter length. Using memory that adheres to the length of the incoming character string allows us to allocate memory efficiently.
