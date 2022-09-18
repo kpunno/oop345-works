@@ -3,7 +3,7 @@ Name ---- Kristjan Punno
 Email --- kpunno@myseneca.ca
 ID ------ 150695211
 Section - NCC
-Date ---- 2022-09-15
+Date ---- 2022-09-18
 +----------------------------------------------------------------------+
 |  I have done all the coding by myself and only copied the code that  |
 |  my professor provided to complete my workshops and assignments.     |
@@ -62,7 +62,7 @@ namespace sdds {
 	// operator loads a Cars object with data from istream
 	std::istream& operator>>(std::istream& is, Cars& car);
 
-	// operator overload to copy a Cars object to another Cars object
+	// operator overload uses copy assignment for Cars objects
 	void operator>>(const Cars& car1, Cars& car2);
 }
 

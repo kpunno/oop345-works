@@ -3,7 +3,7 @@ Name ---- Kristjan Punno
 Email --- kpunno@myseneca.ca
 ID ------ 150695211
 Section - NCC
-Date ---- 2022-09-15
+Date ---- 2022-09-18
 +----------------------------------------------------------------------+
 |  I have done all the coding by myself and only copied the code that  |
 |  my professor provided to complete my workshops and assignments.     |
@@ -15,6 +15,7 @@ Date ---- 2022-09-15
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <string>
 #include <cstring>
 #include "carads.h"
 
@@ -69,19 +70,19 @@ namespace sdds {
 		if (is.good()) {
 
 			// char buffer
-			char temp[100]{};
+			std::string buffer;
 
 			m_wear = is.get();
 
 			is.get();
 
 			// copy brand string -> buffer
-			is.getline(temp, 1000, ',');
+			std::getline(is, buffer, ',');
 
 			// delete present memory -> allocate new memory and copy string
 			delete[] m_brand;
-			m_brand = new char[strlen(temp) + 1];
-			strcpy(m_brand, temp);
+			m_brand = new char[buffer.length() + 1];
+			strcpy(m_brand, buffer.c_str());
 
 			is.getline(m_model, 1000, ',');
 			is >> m_year;
@@ -96,12 +97,13 @@ namespace sdds {
 
 	void Cars::display(bool reset) {
 
-		static int counter;
+		static int counter = 0;
 		double price = m_price + (m_price * g_taxrate);
 
 		if (reset) {
 			counter = 0;
 		}
+
 		std::cout << std::setw(2) << std::left << std::fixed << ++counter << std::setw(2) << ".";
 		if (this->m_brand) {
 			std::cout <<
@@ -115,7 +117,6 @@ namespace sdds {
 			std::cout << std::endl;
 		}
 		else std::cout << "No Car" << std::endl;
-
 	}
 
 	char Cars::getStatus() const {
