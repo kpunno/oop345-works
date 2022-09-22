@@ -22,21 +22,23 @@ namespace sdds {
 
    class TennisLog {
       
-      static int m_mCount;
+      int m_count = {};
 
-      TennisMatch* m_matches{};
+      TennisMatch* m_matches = {};
 
    public:
 
       TennisLog();
       TennisLog(const char* fileName);
-      void addMatch(const TennisMatch& match);
-      TennisLog findMatches(const char* playerName);
-      TennisMatch operator[](size_t);
-      operator size_t();
 
-      // testing only ***
-      void display() const;
+      TennisLog(const TennisLog& log);
+      TennisLog& operator=(const TennisLog& log);
+
+      virtual ~TennisLog();
+      void addMatch(const TennisMatch& match);
+      TennisLog findMatches(const char* playerName) const;
+      TennisMatch operator[](size_t) const;
+      operator size_t();
    };
 
    struct TennisMatch {
@@ -48,7 +50,7 @@ namespace sdds {
       std::string loser;
    };
 
-   std::ostream& operator<<(TennisMatch& match, std::ostream& os);
+   std::ostream& operator<<(std::ostream& os, const TennisMatch& match);
 
 
 }

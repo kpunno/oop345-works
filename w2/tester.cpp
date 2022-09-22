@@ -17,6 +17,9 @@ int main(int argc, char** argv) {
       return 1;
    }
 
-   TennisLog test("tennis-data.csv");   
+   TennisLog test("tennis-data.csv");
+   TennisMatch test2;
+
+   cout << (test)[1000] << endl;
 
 }
