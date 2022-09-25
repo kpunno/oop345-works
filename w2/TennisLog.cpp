@@ -136,11 +136,7 @@ namespace sdds {
 
    TennisMatch TennisLog::operator[](size_t index) const {
       TennisMatch tennisMatch;
-      if (m_count > 0) {
-         tennisMatch = m_matches[index % m_count];
-      }
-      return tennisMatch;
-      /*return m_count > 0 ? m_matches[index % m_count] : tennisMatch;*/
+      return m_count > 0 ? m_matches[index % m_count] : tennisMatch;
    }
 
    TennisLog::operator size_t() {
@@ -176,6 +172,8 @@ namespace sdds {
          os << std::setw(20) << std::right << "Loser";
          os << std::setw(3) << " : ";
          os << std::setw(30) << std::left << match.loser << std::endl;
+
+         os << std::setfill(' ');
       }
       return os;
    }
