@@ -1,6 +1,7 @@
 #ifndef DICTIONARY_H_
 #define DICTIONARY_H_
 
+#include <iostream>
 #include <string>
 
 namespace sdds {
@@ -16,7 +17,19 @@ namespace sdds {
       // TODO: Code the missing prototype functions and operators
       //       that the class needs in order to work with the Queue class.
       //       Implement them in the Dictionary.cpp file.
+      
+      
+      Dictionary();
+
+      /*Dictionary(const Dictionary&);
+      Dictionary& operator=(const Dictionary&);
+      Dictionary(const Dictionary&&);
+      Dictionary& operator=(const Dictionary&&);
+      virtual ~Dictionary();*/
+      
    };
+
+   // std::ostream& operator<<(Dictionary, const std::ostream&);
 }
 
 #endif // DICTIONARY_H_
