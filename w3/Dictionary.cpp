@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "Dictionary.h"
 
 namespace sdds {
@@ -18,6 +19,10 @@ namespace sdds {
 
    }
    Dictionary::~Dictionary() {}*/
-   //std::ostream& operator<<(Dictionary dic, const std::ostream& os) {}
+   
+   std::ostream& operator<<(std::ostream& os, Dictionary dic) {
+      os << std::setw(20) << dic.getTerm() << ": " << dic.getDefinition();
+      return os;
+   }
 
 }

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include "Dictionary.h"
 
 namespace sdds {
 
@@ -31,12 +32,17 @@ namespace sdds {
       T& pop();
       size_t size() const;
       void display(std::ostream& os = std::cout);
-      T operator[](int index);
+      T operator[](unsigned int index);
 
    };
 
+   /******************** TEMPLATE DEFINITIONS ********************/
+
+   template<typename T, size_t CAPACITY>
+   T Queue<T, CAPACITY>::dummy;
+
    template <typename T, size_t CAPACITY>
-   Queue<T, CAPACITY>::Queue() { dummy = 0; }
+   Queue<T, CAPACITY>::Queue() {}
 
    template <typename T, size_t CAPACITY>
    Queue<T, CAPACITY>::Queue(const Queue<T, CAPACITY>& queue) {
@@ -102,11 +108,12 @@ namespace sdds {
       for (int i = 0; i < m_size; i++) {
          os << m_queue[i] << std::endl;
       }
+      os << "----------------------" << std::endl;
    }
 
    template <typename T, size_t CAPACITY>
-   T Queue<T, CAPACITY>::operator[](int index) {
-      return (index < m_size && index >= 0) ? m_queue[index] : dummy;
+   T Queue<T, CAPACITY>::operator[](unsigned int index) {
+      return (index < m_size) ? m_queue[index] : dummy;
    }
 
    template<typename T, size_t CAPACITY>
@@ -114,7 +121,13 @@ namespace sdds {
       return os;
    }
 
+
+
+   /******************** SPECIALIZATIONS ********************/
+
    template<>
+   Dictionary Queue<Dictionary, 100u>::dummy = {"Empty Term", "Empty Substitute"};
+
 
 }
 

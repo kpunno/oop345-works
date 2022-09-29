@@ -20,16 +20,9 @@ namespace sdds {
       
       
       Dictionary();
-
-      /*Dictionary(const Dictionary&);
-      Dictionary& operator=(const Dictionary&);
-      Dictionary(const Dictionary&&);
-      Dictionary& operator=(const Dictionary&&);
-      virtual ~Dictionary();*/
-      
    };
 
-   // std::ostream& operator<<(Dictionary, const std::ostream&);
+   std::ostream& operator<<(std::ostream&, Dictionary dic);
 }
 
 #endif // DICTIONARY_H_
