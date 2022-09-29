@@ -1,4 +1,16 @@
 
+/*
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-09-21
++----------------------------------------------------------------------+
+|  I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments.     |
++----------------------------------------------------------------------+
+*/
+
 #ifndef QUEUE_H_
 #define QUEUE_H_
 
