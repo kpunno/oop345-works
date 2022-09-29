@@ -18,7 +18,7 @@ namespace sdds {
       //       that the class needs in order to work with the Queue class.
       //       Implement them in the Dictionary.cpp file.
       
-      
+      std::ostream& display(std::ostream& os = std::cout);
       Dictionary();
    };
 

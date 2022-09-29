@@ -21,13 +21,6 @@ namespace sdds {
    public:
 
       Queue();
-      Queue(const Queue&);
-      Queue& operator=(const Queue&);
-      Queue(const Queue&&);
-      Queue& operator=(const Queue&&);
-      virtual ~Queue();
-
-
       bool push(const T& item);
       T& pop();
       size_t size() const;
@@ -45,37 +38,6 @@ namespace sdds {
    Queue<T, CAPACITY>::Queue() {}
 
    template <typename T, size_t CAPACITY>
-   Queue<T, CAPACITY>::Queue(const Queue<T, CAPACITY>& queue) {
-      operator=(queue);
-   }
-
-   template <typename T, size_t CAPACITY>
-   Queue<T, CAPACITY>& Queue<T, CAPACITY>::operator=(const Queue<T, CAPACITY>& queue) {
-      if (this != &queue) {
-         dummy = queue.dummy;
-         m_size = queue.m_size;
-      }
-      // what else needs to be done?
-   }
-
-   template <typename T, size_t CAPACITY>
-   Queue<T, CAPACITY>::Queue(const Queue<T, CAPACITY>&& queue) {
-      *this = std::move(queue);
-   }
-
-   template <typename T, size_t CAPACITY>
-   Queue<T, CAPACITY>& Queue<T, CAPACITY>::operator=(const Queue<T, CAPACITY>&& queue) {
-      if (this != &queue) {
-         dummy = queue.dummy;
-         m_size = queue.m_size;
-      }
-      // what else needs to be done?
-   }
-
-   template <typename T, size_t CAPACITY>
-   Queue<T, CAPACITY>::~Queue() {}
-
-   template <typename T, size_t CAPACITY>
    bool Queue<T, CAPACITY>::push(const T& item) {
       T copy = item;
       if (m_size < CAPACITY) {
@@ -91,6 +53,7 @@ namespace sdds {
       for (int i = 1; i < m_size - 1; i++) {
          m_queue[i] = m_queue[i + 1];
       }
+      return temp;
    }
 
    template <typename T, size_t CAPACITY>
@@ -106,7 +69,7 @@ namespace sdds {
       os << std::setw(22) << "*" << std::endl;
       os << std::setfill(' ');
       for (int i = 0; i < m_size; i++) {
-         os << m_queue[i] << std::endl;
+         os << (*this)[i] << std::endl;
       }
       os << "----------------------" << std::endl;
    }
@@ -118,10 +81,9 @@ namespace sdds {
 
    template<typename T, size_t CAPACITY>
    std::ostream& operator<<(std::ostream& os, const Queue<T, CAPACITY> queue) {
+      os << T.display();
       return os;
    }
-
-
 
    /******************** SPECIALIZATIONS ********************/
 

@@ -6,22 +6,12 @@ namespace sdds {
 
    Dictionary::Dictionary() {}
 
-   /*Dictionary::Dictionary(const Dictionary&) {
-
+   std::ostream& Dictionary::display(std::ostream& os) {
+      return os << std::setw(20) << getTerm() << ": " << getDefinition();
    }
-   Dictionary& Dictionary::operator=(const Dictionary&) {
-
-   }
-   Dictionary::Dictionary(const Dictionary&&) {
-
-   }
-   Dictionary& Dictionary::operator=(const Dictionary&&) {
-
-   }
-   Dictionary::~Dictionary() {}*/
    
    std::ostream& operator<<(std::ostream& os, Dictionary dic) {
-      os << std::setw(20) << dic.getTerm() << ": " << dic.getDefinition();
+      dic.display();
       return os;
    }
 
