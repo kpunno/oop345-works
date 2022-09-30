@@ -14,24 +14,25 @@ Date ---- 2022-09-21
 
 namespace sdds {
 
-   template<typename T, size_t CAPACITY>
-   class UniqueQueue : public Queue<T, CAPACITY> {
+   template<typename T>
+   class UniqueQueue : public Queue<T, 100u> {
 
-      template <typename T, size_t CAPACITY>
-      bool Queue<T, CAPACITY>::push(const T& item) override {
+      template <typename T, 100u>
+      bool push(const T& item) override {
          T copy = item;
-         bool output = true;
+         bool unique = true;
          if (m_size < CAPACITY) {
-            for (int i = 0; i < m_size; i++) {
+            for (int i = 0; i < m_size && !flag; i++) {
                if ((*this)[i] == item) {
-                  output = false;
+                  unique = false;
                }
             }
-            if output == true m_queue[m_size++] = copy;
-            return true;
+            if (unique) m_queue[m_size++] = copy;
          }
+         return unique;
       }
 
+      
    };
 
 }
