@@ -33,11 +33,12 @@ namespace sdds {
    public:
 
       Queue();
-      bool push(const T& item);
+      virtual bool push(const T& item);
       T& pop();
       size_t size() const;
       void display(std::ostream& os = std::cout);
       T operator[](unsigned int index);
+      virtual ~Queue();
 
    };
 
@@ -96,6 +97,9 @@ namespace sdds {
       os << T.display();
       return os;
    }
+
+   template<typename T, size_t CAPACITY>
+   Queue<T, CAPACITY>::~Queue() {}
 
    /******************** SPECIALIZATIONS ********************/
 
