@@ -42,6 +42,8 @@ namespace sdds {
       return unique;
    }
 
+   // a specialized push for doubles in a unique queue
+   // checks a matching element within a range; (item + 0.05) >= m_queue[index] >= (item - 0.05)
    template<>
    bool UniqueQueue<double>::push(const double& item) {
       bool unique = true;

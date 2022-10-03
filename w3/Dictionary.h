@@ -33,12 +33,15 @@ namespace sdds {
 
       Dictionary();
 
-      bool operator==(const Dictionary& rhs);
+      // an operator returning true if two m_term strings are equal
+      bool operator==(const Dictionary&);
 
+      // a catered display of an instance of Dictionary
       std::ostream& display(std::ostream& os = std::cout);
       
    };
 
+   // helper function aids in inserting Dictionary into ostream
    std::ostream& operator<<(std::ostream&, Dictionary dic);
 }
 

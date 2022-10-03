@@ -32,8 +32,10 @@ namespace sdds {
 
    public:
 
+      // default constructor
       Queue() {}
 
+      // a method that pushes an item of type T to end of the queue
       virtual bool push(const T& item) {
          T copy = item;
          if (m_size < CAPACITY) {
@@ -43,6 +45,7 @@ namespace sdds {
          else return false;
       }
 
+      // a method that pops an item from queue's first element, and shuffles each item back an index
       T pop() {
          T temp = m_queue[0];
          for (unsigned int i = 0; i < m_size - 1; i++) {
@@ -52,11 +55,12 @@ namespace sdds {
          return temp;
       }
 
-
+      // returns current count of items in queue
       size_t size() const {
          return m_size;
       }
 
+      // formatted display for primitive types
       void display(std::ostream& os = std::cout) {
          os << std::setfill('-');
          os << std::setw(22) << "-" << std::endl;
@@ -69,22 +73,27 @@ namespace sdds {
          os << "----------------------" << std::endl;
       }
 
+      // returns the request element of the queue at the given index
       T operator[](unsigned int index) {
          return (index < m_size) ? m_queue[index] : m_dummy;
       }
 
+      // default destructor
       virtual ~Queue() {}
    };
 
+   // insantiates the m_dummy if the type is not user-defined
    template<typename T, size_t CAPACITY>
    T Queue<T, CAPACITY>::m_dummy;
 
+   // aids in outputting display of primitive-types to ostream
    template<typename T, size_t CAPACITY>
    std::ostream& operator<<(std::ostream& os, const Queue<T, CAPACITY> queue) {
       os << Queue<T, CAPACITY>::T.display();
       return os;
    }
 
+   // a specialized instantiation of m_dummy for when the class-type is Dictionary, and the capacity is 100
    template<>
    Dictionary Queue<Dictionary, 100u>::m_dummy = { "Empty Term", "Empty Substitute" };
 
