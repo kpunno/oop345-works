@@ -10,8 +10,33 @@ Date ---- 2022-09-21
 +----------------------------------------------------------------------+
 */
 
+#include <iostream>
 #include "Reservation.h"
 
 namespace sdds {
 
+   Reservation::Reservation() {
+
+   }
+
+   void Reservation::update(int day, int time) {
+
+   }
+
+   Reservation::Reservation(const std::string& res) {
+      std::string temp = res;
+      size_t pos;
+      pos = res.find(":");
+      temp.erase(pos);
+      while (temp.npos != temp.find(" ")) {
+         temp.erase(temp.find(" "), 1);
+      }
+      std::cout << temp << std::endl;
+      std::cout << "*******************************************************" << std::endl;
+   }
+
+   std::ostream& operator<<(std::ostream& os, const Reservation reservation) {
+
+      return os;
+   }
 }
