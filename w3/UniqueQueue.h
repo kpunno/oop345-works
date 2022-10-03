@@ -23,11 +23,12 @@ namespace sdds {
    public:
       UniqueQueue() {}
 
-      bool push(const T& item);
+      bool push(const T& item) override;
 
       ~UniqueQueue() {}
    };
-
+   
+   // push override ensures that a duplicate item will not be added to the queue of unique elements
    template <typename T>
    bool UniqueQueue<T>::push(const T& item) {
       bool unique = true;
@@ -43,12 +44,13 @@ namespace sdds {
    }
 
    // a specialized push for doubles in a unique queue
-   // checks a matching element within a range; (item + 0.05) >= m_queue[index] >= (item - 0.05)
+   // checks a matching element within a range; (item + 0.005) >= m_queue[index] >= (item - 0.005)
    template<>
    bool UniqueQueue<double>::push(const double& item) {
       bool unique = true;
+      double range = 0.005;
       for (unsigned int i = 0; i < this->size() && unique; i++) {
-         if ((*this)[i] <= (item + 0.005) && (*this)[i] >= (item - 0.005)) {
+         if (std::fabs((*this)[i]) <= (item + range) && std::fabs((*this)[i]) >= (item - range)) {
             unique = false;
          }
       }
