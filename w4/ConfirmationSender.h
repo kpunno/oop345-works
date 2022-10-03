@@ -11,16 +11,22 @@ Date ---- 2022-10-03
 */
 
 
-#include <string>
+#ifndef CONFIRMATION_SENDER_H_
+#define CONFIRMATION_SENDER_H_
+
+#include "Reservation.h"
 
 namespace sdds {
-   class Utils
+   class ConfirmationSender
    {
+      const Reservation** res;
    public:
-      // updates the position 
-      static size_t findNewPos(std::string& str, size_t pos, char delim);
-      static void eraseWhiteSpace(std::string& str);
-      inline static bool debug = false;
+      ConfirmationSender& operator+=(const Reservation& res);
+      ConfirmationSender& operator-=(const Reservation& res);
+
+      friend std::ostream& operator<<(std::ostream&, const ConfirmationSender&);
    };
 }
+
+#endif //CONFIRMATION_SENDER_H_
 
