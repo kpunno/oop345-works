@@ -62,6 +62,7 @@ namespace sdds {
          for (unsigned int i = 0; i < m_size; i++) {
             res[i] = resto.res[i];
          }
+         resto.m_size = 0;
          resto.res = nullptr;
       }
       return *this;
