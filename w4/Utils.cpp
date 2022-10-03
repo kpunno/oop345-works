@@ -14,4 +14,10 @@ namespace sdds {
       }
       
    }
+
+   size_t Utils::findNewPos(std::string& str, size_t pos, char delim) {
+      str.erase(0, pos);
+      pos = str.find(delim);
+      return pos;
+   }
 }

@@ -27,46 +27,43 @@ namespace sdds {
    }
 
    Reservation::Reservation(const std::string& res) {
-      size_t pos;
-      size_t pos2;
-
+      size_t pos{ 0 };
       std::string input = res;
-      pos = res.find(":");
-      std::string temp = input.substr(0, pos++);
+      std::string temp{};
+
+      pos = Utils::findNewPos(input, pos, ':');
+      temp = input.substr(0, pos++);
       Utils::eraseWhiteSpace(temp);
-      int x = temp.length();
+
       for (int i = 0; i < temp.length(); i++) {
          m_id[i] = temp[i];
       }
-      input.erase(0, pos);
-      pos = input.find(",");
+      
+      pos = Utils::findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
       Utils::eraseWhiteSpace(temp);
       m_name = temp;
 
-      input.erase(0, pos);
-      pos = input.find(",");
+      pos = Utils::findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
       Utils::eraseWhiteSpace(temp);
       m_email = temp;
 
-      input.erase(0, pos);
-      pos = input.find(",");
+      pos = Utils::findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
       Utils::eraseWhiteSpace(temp);
       m_partySize = stoi(temp);
 
-      input.erase(0, pos);
-      pos = input.find(",");
+      pos = Utils::findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
       Utils::eraseWhiteSpace(temp);
       m_day = stoi(temp);
 
-      input.erase(0, pos);
-      pos = input.find(",");
+      pos = Utils::findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
       Utils::eraseWhiteSpace(temp);
       m_hour = stoi(temp);
+
 
       if (Utils::debug) {
          for (int i = 0; i < temp.length(); i++) {
