@@ -82,9 +82,9 @@ namespace sdds {
       virtual ~Queue() {}
    };
 
-   // insantiates the m_dummy if the type is not user-defined
+   // insantiates an empty m_dummy if the type is not user-defined
    template<typename T, size_t CAPACITY>
-   T Queue<T, CAPACITY>::m_dummy;
+   T Queue<T, CAPACITY>::m_dummy{};
 
    // aids in outputting display of primitive-types to ostream
    template<typename T, size_t CAPACITY>

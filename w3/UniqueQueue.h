@@ -13,6 +13,7 @@ Date ---- 2022-09-21
 #ifndef UNQ_QUEUE_H_
 #define UNQ_QUEUE_H_
 
+#include <cmath>
 #include "Queue.h"
 
 namespace sdds {

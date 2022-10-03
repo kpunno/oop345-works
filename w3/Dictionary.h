@@ -27,10 +27,6 @@ namespace sdds {
       const std::string& getDefinition() const { return m_definition; }
       Dictionary(const std::string& term, const std::string& definition) : m_term{ term }, m_definition{ definition }{}
 
-      // TODO: Code the missing prototype functions and operators
-      //       that the class needs in order to work with the Queue class.
-      //       Implement them in the Dictionary.cpp file.
-
       Dictionary();
 
       // an operator returning true if two m_term strings are equal

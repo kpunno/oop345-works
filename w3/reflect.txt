@@ -1,0 +1,53 @@
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-09-21
+
+
+1) Challenges faced
+
+I don't have a lengthy experience with implementing templates, so understanding the syntactic design proved to be an ordeal. I received many errors that I hadn't encountered in the past -- and had to do quite a bit of research on each of the error codes to understand what I needed to do to resolve them, and ensuring I had a good understanding of the issue so as not to repeat the same mistakes.
+
+
+
+2) Dictionary methods
+
+I did my best to limit the additions to the dictionary class, only adding methods which were apparently required for the program's logic to function appropriately.
+
+The display method aids in ensuring the dictionary has a unique format when displayed as it contains a set of data as opposed to one value. The two members of the dictionary class must be displayed, which requires a separate logic from the one value that is displayed by a Queue of a primitive type.
+
+The operator== overload was necessary to compare two dictionary definitions. There is no in-built appropriate method to compare two strings. When a UniqueQueue must validate that a dictionary definition is unique, it must have a comparison operator to determine whether the term has a match or not.
+
+The operator<< overload was necessary as a helper to insert formatted display of a dictionary definition into ostream seamlessly. Display ensures that there is unique formatting, where the operator<< overload will call Dictionary's display method.
+
+
+3) UniqueuQueue double specialization 
+
+specializing the push function for double input ensures that the associated processes only will execute under the circumstance that a double value is passed. An ambiguous type of T is intended as a catch-all for many different scenarios of Queue types, whereas the range comparison contained within the double specialization is only required on floating point values.
+
+
+
+4) Queue -- Only a header file
+
+When a program is compiled, the compiler will insantiate all of the required class-types of a template class. For example, when the compiler sees these declarations in the w3_p2.cpp file:
+
+sdds::Queue<long, 20> colIntegers;
+sdds::Queue<double, 30> colFloats;
+sdds::Queue<sdds::Dictionary, 50> queueDictionary;
+
+The compiler will understand that three class types need to be created, one for each type; int, double and Dictionary.
+
+Including the definitions within the header file allows the compiler to have immediate access to the definitions while implementing the respective class-type, for each class-type that needs to be created.
+
+
+
+5) Defining the class variable outside of class definition
+
+When a new type of Queue is constructed, a class of that supplied type is created, including the static variable that all objects of the class-type share. For example, all Queue<int> objects will share their respective int dummy. When a new type of Queue is created, for example, a Dictionary type Queue, it will possess its own static variable of type Dictionary that will be shared between all objects of that type.
+
+Queue<int, 100> intQueue;
+Queue<Dictionary, 100> dicQueue;
+
+If these two objects are initialized, they will possess their own class variables to adhere to their respective type.
+
