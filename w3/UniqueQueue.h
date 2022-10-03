@@ -10,29 +10,54 @@ Date ---- 2022-09-21
 +----------------------------------------------------------------------+
 */
 
+#ifndef UNQ_QUEUE_H_
+#define UNQ_QUEUE_H_
+
 #include "Queue.h"
 
 namespace sdds {
 
    template<typename T>
-   class UniqueQueue : public Queue<T, 100u> {
+   class UniqueQueue : public Queue<T, 100> {
 
-      template <typename T, 100u>
-      bool push(const T& item) override {
-         T copy = item;
-         bool unique = true;
-         if (m_size < CAPACITY) {
-            for (int i = 0; i < m_size && !flag; i++) {
-               if ((*this)[i] == item) {
-                  unique = false;
-               }
-            }
-            if (unique) m_queue[m_size++] = copy;
-         }
-         return unique;
-      }
+   public:
+      UniqueQueue() {}
 
-      
+      bool push(const T& item);
+
+      ~UniqueQueue() {}
    };
 
+   template <typename T>
+   bool UniqueQueue<T>::push(const T& item) {
+      bool unique = true;
+      for (unsigned int i = 0; i < this->size() && (unique); i++) {
+         if ((*this)[i] == item) {
+            unique = false;
+         }
+      }
+      if (unique) {
+         Queue<T, 100>::push(item);
+      }
+      return unique;
+   }
+
+   template<>
+   bool UniqueQueue<double>::push(const double& item) {
+      bool unique = true;
+      for (unsigned int i = 0; i < this->size() && unique; i++) {
+         if ((*this)[i] <= (item + 0.005) && (*this)[i] >= (item - 0.005)) {
+            unique = false;
+         }
+      }
+      if (unique) {
+         Queue::push(item);
+      }
+      return unique;
+   }
+
+   
+
 }
+
+#endif // UNQ_QUEUE_H_

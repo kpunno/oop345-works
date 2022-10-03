@@ -13,6 +13,7 @@ Date ---- 2022-09-21
 
 #include <iostream>
 #include <iomanip>
+#include <string>
 #include "Dictionary.h"
 
 namespace sdds {
@@ -21,6 +22,10 @@ namespace sdds {
 
    std::ostream& Dictionary::display(std::ostream& os) {
       return os << std::setw(20) << getTerm() << ": " << getDefinition();
+   }
+
+   bool Dictionary::operator==(const Dictionary& rhs) {
+      return m_term.compare(rhs.getTerm()) == 0 ? true : false;
    }
    
    std::ostream& operator<<(std::ostream& os, Dictionary dic) {

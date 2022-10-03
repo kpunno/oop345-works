@@ -33,6 +33,8 @@ namespace sdds {
 
       Dictionary();
 
+      bool operator==(const Dictionary& rhs);
+
       std::ostream& display(std::ostream& os = std::cout);
       
    };
