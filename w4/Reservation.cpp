@@ -18,12 +18,11 @@ Date ---- 2022-09-21
 
 namespace sdds {
 
-   Reservation::Reservation() {
-
-   }
+   Reservation::Reservation() {}
 
    void Reservation::update(int day, int time) {
-
+      m_day = day;
+      m_hour = time;
    }
 
    Reservation::Reservation(const std::string& res) {
@@ -63,13 +62,6 @@ namespace sdds {
       temp = input.substr(0, pos++);
       Utils::eraseWhiteSpace(temp);
       m_hour = stoi(temp);
-
-
-      if (Utils::debug) {
-         for (int i = 0; i < temp.length(); i++) {
-            std::cout << static_cast<int>(temp[i]) << ", ";
-         }
-      }
    }
 
    std::ostream& operator<<(std::ostream& os, const Reservation res) {
