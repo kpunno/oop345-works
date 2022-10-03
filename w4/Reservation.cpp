@@ -11,7 +11,10 @@ Date ---- 2022-09-21
 */
 
 #include <iostream>
+#include <cstring>
+#include <iomanip>
 #include "Reservation.h"
+#include "Utils.h"
 
 namespace sdds {
 
@@ -24,19 +27,78 @@ namespace sdds {
    }
 
    Reservation::Reservation(const std::string& res) {
-      std::string temp = res;
       size_t pos;
+      size_t pos2;
+
+      std::string input = res;
       pos = res.find(":");
-      temp.erase(pos);
-      while (temp.npos != temp.find(" ")) {
-         temp.erase(temp.find(" "), 1);
+      std::string temp = input.substr(0, pos++);
+      Utils::eraseWhiteSpace(temp);
+      int x = temp.length();
+      for (int i = 0; i < temp.length(); i++) {
+         m_id[i] = temp[i];
       }
-      std::cout << temp << std::endl;
-      std::cout << "*******************************************************" << std::endl;
+      input.erase(0, pos);
+      pos = input.find(",");
+      temp = input.substr(0, pos++);
+      Utils::eraseWhiteSpace(temp);
+      m_name = temp;
+
+      input.erase(0, pos);
+      pos = input.find(",");
+      temp = input.substr(0, pos++);
+      Utils::eraseWhiteSpace(temp);
+      m_email = temp;
+
+      input.erase(0, pos);
+      pos = input.find(",");
+      temp = input.substr(0, pos++);
+      Utils::eraseWhiteSpace(temp);
+      m_partySize = stoi(temp);
+
+      input.erase(0, pos);
+      pos = input.find(",");
+      temp = input.substr(0, pos++);
+      Utils::eraseWhiteSpace(temp);
+      m_day = stoi(temp);
+
+      input.erase(0, pos);
+      pos = input.find(",");
+      temp = input.substr(0, pos++);
+      Utils::eraseWhiteSpace(temp);
+      m_hour = stoi(temp);
+
+      if (Utils::debug) {
+         for (int i = 0; i < temp.length(); i++) {
+            std::cout << static_cast<int>(temp[i]) << ", ";
+         }
+      }
    }
 
-   std::ostream& operator<<(std::ostream& os, const Reservation reservation) {
-
+   std::ostream& operator<<(std::ostream& os, const Reservation res) {
+      std::string occasion{};
+      if (res.m_hour >= 6 && res.m_hour <= 9) {
+         occasion = "Breakfast";
+      }
+      else if (res.m_hour >= 11 && res.m_hour <= 15) {
+         occasion = "Lunch";
+      }
+      else if (res.m_hour >= 17 && res.m_hour <= 21) {
+         occasion = "Dinner";
+      }
+      else {
+         occasion = "Drinks";
+      }
+      os << "Reservation ";
+      os << std::right;
+      os << std::setw(10) << res.m_id << ": ";
+      os << std::setw(20) << res.m_name << "  ";
+      os << std::left;
+      os << std::setw(24) << ("<" + res.m_email + ">");
+      os << occasion + " on day " << res.m_day << " @ " << res.m_hour << ":00 for " << res.m_partySize;
+      os << ((res.m_partySize > 1) ? " people." : " person.");
+      os << std::endl;
+      
       return os;
    }
 }

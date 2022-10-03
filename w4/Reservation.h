@@ -22,12 +22,12 @@ namespace sdds {
 
    class Reservation
    {
-      char id[ID_MAX]{};
-      std::string name{};
-      std::string email{};
-      unsigned int partySize{};
-      unsigned int day{};
-      unsigned int hour{};
+      char m_id[ID_MAX]{};
+      std::string m_name{};
+      std::string m_email{};
+      unsigned int m_partySize{};
+      unsigned int m_day{};
+      unsigned int m_hour{};
 
    public:
       Reservation();
@@ -36,7 +36,7 @@ namespace sdds {
 
       Reservation(const std::string& res);
 
-      friend std::ostream& operator<<(std::ostream& os, const Reservation reservation);
+      friend std::ostream& operator<<(std::ostream& os, const Reservation);
    };
 
    

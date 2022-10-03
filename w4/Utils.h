@@ -4,7 +4,9 @@
 namespace sdds {
    class Utils
    {
-      static void eraseWhiteSpace(std::string* str);
+   public:
+      static void eraseWhiteSpace(std::string& str);
+      inline static bool debug = false;
    };
 }
 
