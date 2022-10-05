@@ -32,4 +32,12 @@ namespace sdds {
       pos = str.find(delim);
       return pos;
    }
+
+   std::string& extractNext(size_t pos, std::string& input) {
+      std::string temp;
+      pos = Utils::findNewPos(input, pos, ',');
+      temp = input.substr(0, pos++);
+      Utils::eraseWhiteSpace(temp);
+      return temp;
+   }
 }

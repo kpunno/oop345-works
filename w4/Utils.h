@@ -21,6 +21,9 @@ namespace sdds {
       static size_t findNewPos(std::string& str, size_t pos, char delim);
       static void eraseWhiteSpace(std::string& str);
       inline static bool debug = false;
+
+      // maybe delete
+      static std::string& extractNext(size_t, std::string&);
    };
 }
 
