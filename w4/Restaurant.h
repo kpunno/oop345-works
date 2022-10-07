@@ -20,7 +20,7 @@ Date ---- 2022-10-03
 namespace sdds {
    class Restaurant
    {
-      Reservation** res;
+      Reservation** m_res;
       size_t m_size;
    public:
       Restaurant();

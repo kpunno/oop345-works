@@ -19,10 +19,10 @@ namespace sdds {
    Restaurant::Restaurant() {}
 
    Restaurant::Restaurant(const Reservation* reservations[], size_t cnt) {
-      res = new Reservation * [cnt];
+      m_res = new Reservation * [cnt];
       for (unsigned int i = 0; i < cnt; i++) {
-         res[i] = new Reservation;
-         *res[i] = *reservations[i];
+         m_res[i] = new Reservation;
+         *m_res[i] = *reservations[i];
       }
       m_size = cnt;
    }
@@ -34,14 +34,14 @@ namespace sdds {
    Restaurant& Restaurant::operator=(const Restaurant& resto) {
       if (this != &resto) {
          while (m_size) {
-            delete res[--m_size];
+            delete m_res[--m_size];
          }
-         delete[] res;
+         delete[] m_res;
          m_size = resto.m_size;
-         res = new Reservation * [m_size];
+         m_res = new Reservation * [m_size];
          for (unsigned int i = 0; i < m_size; i++) {
-            res[i] = new Reservation;
-            *res[i] = *resto.res[i];
+            m_res[i] = new Reservation;
+            *m_res[i] = *resto.m_res[i];
          }
       }
       return *this;
@@ -54,25 +54,25 @@ namespace sdds {
    Restaurant& Restaurant::operator=(Restaurant&& resto) {
       if (this != &resto) {
          while (m_size) {
-            delete res[--m_size];
+            delete m_res[--m_size];
          }
-         delete[] res;
+         delete[] m_res;
          m_size = resto.m_size;
-         res = resto.res;
+         m_res = resto.m_res;
          for (unsigned int i = 0; i < m_size; i++) {
-            res[i] = resto.res[i];
+            m_res[i] = resto.m_res[i];
          }
          resto.m_size = 0;
-         resto.res = nullptr;
+         resto.m_res = nullptr;
       }
       return *this;
    }
    Restaurant::~Restaurant() {
       while (m_size) {
-         delete res[--m_size];
+         delete m_res[--m_size];
       }
-      delete[] res;
-      res = nullptr;
+      delete[] m_res;
+      m_res = nullptr;
    }
 
    size_t Restaurant::size() {
@@ -85,14 +85,15 @@ namespace sdds {
       os << "--------------------------" << std::endl;
       os << "Fancy Restaurant (" << callCnt << ")" << std::endl;
       os << "--------------------------" << std::endl;
-      if (resto.res != nullptr) {
+      if (resto.m_res != nullptr) {
          for (unsigned int i = 0; i < resto.m_size; i++) {
-            os << *resto.res[i];
+            os << *resto.m_res[i];
          }
       }
       else {
          os << "This restaurant is empty!" << std::endl;
       }
+      os << "--------------------------" << std::endl;
       return os;
    }
 }
