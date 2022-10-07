@@ -19,11 +19,38 @@ Date ---- 2022-10-03
 namespace sdds {
    class ConfirmationSender
    {
-      const Reservation** res;
+      const Reservation** m_res{};
+      size_t m_size{};
+
    public:
+      // default constructor
+      ConfirmationSender();
+
+      // copy constructor
+      ConfirmationSender(const ConfirmationSender&);
+
+      // copy assign
+      ConfirmationSender& operator=(const ConfirmationSender&);
+
+      // move constructor
+      ConfirmationSender(ConfirmationSender&&);
+
+      // move assign
+      ConfirmationSender& operator=(ConfirmationSender&&);
+
+      // destructor
+      virtual ~ConfirmationSender();
+
+      // returns size -- NECESSARY************ ??
+      size_t size();
+
+      // add to array
       ConfirmationSender& operator+=(const Reservation& res);
+      
+      // delete from array
       ConfirmationSender& operator-=(const Reservation& res);
 
+      // ostream operator overload
       friend std::ostream& operator<<(std::ostream&, const ConfirmationSender&);
    };
 }
