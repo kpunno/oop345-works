@@ -59,9 +59,6 @@ namespace sdds {
          delete[] m_res;
          m_size = resto.m_size;
          m_res = resto.m_res;
-         for (unsigned int i = 0; i < m_size; i++) {
-            m_res[i] = resto.m_res[i];
-         }
          resto.m_size = 0;
          resto.m_res = nullptr;
       }

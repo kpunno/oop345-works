@@ -41,9 +41,6 @@ namespace sdds {
       // destructor
       virtual ~ConfirmationSender();
 
-      // returns size -- NECESSARY************ ??
-      size_t size();
-
       // add to array
       ConfirmationSender& operator+=(const Reservation& res);
       

@@ -15,9 +15,7 @@ Date ---- 2022-10-03
 
 namespace sdds {
 
-   ConfirmationSender::ConfirmationSender() {
-      // do something ?
-   }
+   ConfirmationSender::ConfirmationSender() {}
 
    ConfirmationSender::ConfirmationSender(const ConfirmationSender& cs) {
       this->operator=(cs);
@@ -27,38 +25,80 @@ namespace sdds {
       if (this != &cs) {
          m_size = cs.m_size;
          m_res = cs.m_res;
-         for (unsigned int i = 0; i < m_size; i++) {
-            m_res[i] = cs.m_res[i];
-         }
       }
       return *this;
    }
 
    ConfirmationSender::ConfirmationSender(ConfirmationSender&& cs) {
-      //this->std::move(cs);
+      *this = std::move(cs);
    }
 
    ConfirmationSender& ConfirmationSender::operator=(ConfirmationSender&& cs) {
+      if (this != &cs) {
+         m_size = cs.m_size;
+         m_res = cs.m_res;
+         cs.m_size = 0;
+         cs.m_res = nullptr;
+      }
       return *this;
    }
 
-   // returns size -- NECESSARY************ ??
-   size_t size();
-
    ConfirmationSender& ConfirmationSender::operator+=(const Reservation& res) {
+      // validate reservation
       ConfirmationSender temp;
-      // add something
-      return temp;
+      bool match{false};
+      if (m_size) {
+         for (unsigned i{ 0 }; i < m_size && !match; i++) {
+            if (m_res[i] == &res) {
+               match = true;
+            }
+         }
+      }
+      if (!match) {
+         m_size++;
+         temp.m_res = new const Reservation * [m_size];
+         for (unsigned i{ 0 }; i < m_size - 1; i++) {
+            temp.m_res[i] = m_res[i];
+            m_res[i] = nullptr;
+         }
+         temp.m_res[m_size - 1] = &res;
+         delete[] m_res;
+         m_res = temp.m_res;
+      }
+      return *this;
    }
 
    ConfirmationSender& ConfirmationSender::operator-=(const Reservation& res) {
       ConfirmationSender temp;
-      // substract something
-      return temp;
+      bool match{ false };
+      if (m_size) {
+         for (unsigned i{ 0 }; i < m_size && !match; i++) {
+            if (m_res[i] == &res) {
+               match = true;
+               m_res[i] = nullptr;
+               for (++i; i < m_size; i++) {
+                  m_res[i - 1] = m_res[i];
+               }
+            }
+         }
+      }
+      if (match) {
+         //for (unsigned i{ 0 }; i < m_size; i++) { delete m_res[i]; m_res[i] = nullptr; };
+         //delete [] m_res;
+         m_size--;
+         temp.m_res = new const Reservation * [m_size];
+         for (unsigned i{ 0 }; i < m_size; i++) {
+            temp.m_res[i] = m_res[i];
+            m_res[i] = nullptr;
+         }
+         delete[]m_res;
+         m_res = temp.m_res;
+      }
+      return *this;
    }
 
    ConfirmationSender::~ConfirmationSender() {
-      // do something ?
+      m_res = nullptr;
    }
 
 
@@ -72,7 +112,9 @@ namespace sdds {
          os << "There are no confirmations to send!" << std::endl;
       }
       else {
-         // do something
+         for (unsigned i{ 0 }; i < res.m_size; i++) {
+            os << *res.m_res[i];
+         }
       }
       os << "--------------------------" << std::endl;
       return os;
