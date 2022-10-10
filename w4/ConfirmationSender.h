@@ -3,7 +3,7 @@ Name ---- Kristjan Punno
 Email --- kpunno@myseneca.ca
 ID ------ 150695211
 Section - NCC
-Date ---- 2022-10-03
+Date ---- 2022-10-09
 +----------------------------------------------------------------------+
 |  I have done all the coding by myself and only copied the code that  |
 |  my professor provided to complete my workshops and assignments.     |
@@ -23,22 +23,17 @@ namespace sdds {
       size_t m_size{};
 
    public:
-      // default constructor
+ 
       ConfirmationSender();
 
-      // copy constructor
       ConfirmationSender(const ConfirmationSender&);
 
-      // copy assign
       ConfirmationSender& operator=(const ConfirmationSender&);
 
-      // move constructor
       ConfirmationSender(ConfirmationSender&&);
 
-      // move assign
       ConfirmationSender& operator=(ConfirmationSender&&);
 
-      // destructor
       virtual ~ConfirmationSender();
 
       // add to array
@@ -46,6 +41,13 @@ namespace sdds {
       
       // delete from array
       ConfirmationSender& operator-=(const Reservation& res);
+
+      // searches array for supplied reservation
+      int find(const Reservation& res) const;
+
+      // used in operator-= ... 
+      // if find is successful, nullifies the index, shuffles each successive index back a position
+      void shuffle(unsigned idx);
 
       // ostream operator overload
       friend std::ostream& operator<<(std::ostream&, const ConfirmationSender&);

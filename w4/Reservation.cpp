@@ -3,7 +3,7 @@ Name ---- Kristjan Punno
 Email --- kpunno@myseneca.ca
 ID ------ 150695211
 Section - NCC
-Date ---- 2022-10-03
+Date ---- 2022-10-09
 +----------------------------------------------------------------------+
 |  I have done all the coding by myself and only copied the code that  |
 |  my professor provided to complete my workshops and assignments.     |
@@ -14,9 +14,14 @@ Date ---- 2022-10-03
 #include <cstring>
 #include <iomanip>
 #include "Reservation.h"
-#include "Utils.h"
 
 namespace sdds {
+
+   // finds next delimiter in a string to be spliced
+   size_t findNewPos(std::string& str, size_t pos, char delim);
+
+   // trims of whitespace an extracted string
+   void eraseWhiteSpace(std::string& str);
 
    Reservation::Reservation() {}
 
@@ -30,37 +35,37 @@ namespace sdds {
       std::string input = res;
       std::string temp{};
 
-      pos = Utils::findNewPos(input, pos, ':');
+      pos = findNewPos(input, pos, ':');
       temp = input.substr(0, pos++);
-      Utils::eraseWhiteSpace(temp);
+      eraseWhiteSpace(temp);
 
-      for (int i = 0; i < temp.length(); i++) {
+      for (unsigned i = 0; i < temp.length(); i++) {
          m_id[i] = temp[i];
       }
-      
-      pos = Utils::findNewPos(input, pos, ',');
+
+      pos = findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
-      Utils::eraseWhiteSpace(temp);
+      eraseWhiteSpace(temp);
       m_name = temp;
 
-      pos = Utils::findNewPos(input, pos, ',');
+      pos = findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
-      Utils::eraseWhiteSpace(temp);
+      eraseWhiteSpace(temp);
       m_email = temp;
 
-      pos = Utils::findNewPos(input, pos, ',');
+      pos = findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
-      Utils::eraseWhiteSpace(temp);
+      eraseWhiteSpace(temp);
       m_partySize = stoi(temp);
 
-      pos = Utils::findNewPos(input, pos, ',');
+      pos = findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
-      Utils::eraseWhiteSpace(temp);
+      eraseWhiteSpace(temp);
       m_day = stoi(temp);
 
-      pos = Utils::findNewPos(input, pos, ',');
+      pos = findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
-      Utils::eraseWhiteSpace(temp);
+      eraseWhiteSpace(temp);
       m_hour = stoi(temp);
    }
 
@@ -87,7 +92,24 @@ namespace sdds {
       os << occasion + " on day " << res.m_day << " @ " << res.m_hour << ":00 for " << res.m_partySize;
       os << ((res.m_partySize > 1) ? " people." : " person.");
       os << std::endl;
-      
+
       return os;
+   }
+
+   void eraseWhiteSpace(std::string& str) {
+      unsigned int i = 0;
+      while (str[i] == ' ') {
+         str.erase(i, 1);
+      }
+      i = str.length() - 1;
+      while (str[i] == ' ') {
+         str.erase(i--, 1);
+      }
+   }
+
+   size_t findNewPos(std::string& str, size_t pos, char delim) {
+      str.erase(0, pos);
+      pos = str.find(delim);
+      return pos;
    }
 }

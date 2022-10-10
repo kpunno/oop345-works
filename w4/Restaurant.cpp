@@ -3,7 +3,7 @@ Name ---- Kristjan Punno
 Email --- kpunno@myseneca.ca
 ID ------ 150695211
 Section - NCC
-Date ---- 2022-10-03
+Date ---- 2022-10-09
 +----------------------------------------------------------------------+
 |  I have done all the coding by myself and only copied the code that  |
 |  my professor provided to complete my workshops and assignments.     |
@@ -16,7 +16,10 @@ Date ---- 2022-10-03
 
 namespace sdds {
 
-   Restaurant::Restaurant() {}
+   Restaurant::Restaurant() {
+      m_res = nullptr;
+      m_size = 0;
+   }
 
    Restaurant::Restaurant(const Reservation* reservations[], size_t cnt) {
       m_res = new Reservation * [cnt];
@@ -28,6 +31,8 @@ namespace sdds {
    }
 
    Restaurant::Restaurant(const Restaurant& resto) {
+      m_size = 0;
+      m_res = nullptr;
       this->operator=(resto);
    }
 
@@ -37,9 +42,9 @@ namespace sdds {
             delete m_res[--m_size];
          }
          delete[] m_res;
-         m_size = resto.m_size;
+         m_size = resto.size();
          m_res = new Reservation * [m_size];
-         for (unsigned int i = 0; i < m_size; i++) {
+         for (unsigned int i{0}; i < m_size; i++) {
             m_res[i] = new Reservation;
             *m_res[i] = *resto.m_res[i];
          }
@@ -48,6 +53,8 @@ namespace sdds {
    }
 
    Restaurant::Restaurant(Restaurant&& resto) {
+      m_size = 0;
+      m_res = nullptr;
       *this = std::move(resto);
    }
 
@@ -57,7 +64,7 @@ namespace sdds {
             delete m_res[--m_size];
          }
          delete[] m_res;
-         m_size = resto.m_size;
+         m_size = resto.size();
          m_res = resto.m_res;
          resto.m_size = 0;
          resto.m_res = nullptr;
@@ -72,7 +79,7 @@ namespace sdds {
       m_res = nullptr;
    }
 
-   size_t Restaurant::size() {
+   size_t Restaurant::size() const {
       return m_size;
    }
 
