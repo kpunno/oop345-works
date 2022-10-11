@@ -52,7 +52,7 @@ namespace sdds {
       eraseWhiteSpace(temp);
       m_year = stoi(temp);
 
-      pos = findNewPos(input, pos, ',');
+      pos = findNewPos(input, pos, '\n');
       temp = input.substr(0, pos++);
       eraseWhiteSpace(temp);
       m_desc = temp;
@@ -85,7 +85,7 @@ namespace sdds {
          os << std::setw(22) << book.m_title << " | ";
          os << std::setw(5) << book.m_country << " | ";
          os << std::setw(4) << book.m_year << " | ";
-         os << std::setprecision(2.2);
+         os << std::fixed << std::setprecision(2);
          os << std::setw(6) << book.m_price << " | ";
          os << std::left;
          os << std::setw(22) << book.m_desc;
