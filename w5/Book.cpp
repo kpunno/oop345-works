@@ -3,7 +3,7 @@ Name ---- Kristjan Punno
 Email --- kpunno@myseneca.ca
 ID ------ 150695211
 Section - NCC
-Date ---- 2022-10-10
+Date ---- 2022-10-19
 +----------------------------------------------------------------------+
 |  I have done all the coding by myself and only copied the code that  |
 |  my professor provided to complete my workshops and assignments.     |
@@ -16,16 +16,17 @@ Date ---- 2022-10-10
 
 namespace sdds {
 
-   void eraseWhiteSpace(std::string& str);
-
-   size_t findNewPos(std::string& str, size_t pos, char delim);
-
    Book::Book() {}
 
    Book::Book(const std::string& strBook) {
       size_t pos{0};
       std::string input{strBook};
       std::string temp{};
+
+      // could be looped, but more convoluted
+      // 1. finds position according to delimiter, assigns position
+      // 2. extracts pre-position characters
+      // 3. erases white space and assigns to appropriate member variable
 
       pos = findNewPos(input, pos, ',');
       temp = input.substr(0, pos++);
@@ -77,7 +78,7 @@ namespace sdds {
 
    // UTILITY HELPERS //
 
-   std::ostream& operator<<(std::ostream& os, Book& book) {
+   std::ostream& operator<<(std::ostream& os, const Book& book) {
       if (book.m_title != "") {
          os << std::right;
 
@@ -95,6 +96,8 @@ namespace sdds {
       return os;
    }
 
+
+   // erases trailing and leading white space of a string
    void eraseWhiteSpace(std::string& str) {
       unsigned int i = 0;
       while (str[i] == ' ') {
@@ -105,6 +108,8 @@ namespace sdds {
          str.erase(i--, 1);
       }
    }
+
+   // finds a new position in a complete supplied string, according to a specific delimiter
    size_t findNewPos(std::string& str, size_t pos, char delim) {
       str.erase(0, pos);
       pos = str.find(delim);

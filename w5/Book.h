@@ -3,7 +3,7 @@ Name ---- Kristjan Punno
 Email --- kpunno@myseneca.ca
 ID ------ 150695211
 Section - NCC
-Date ---- 2022-10-10
+Date ---- 2022-10-19
 +----------------------------------------------------------------------+
 |  I have done all the coding by myself and only copied the code that  |
 |  my professor provided to complete my workshops and assignments.     |
@@ -45,8 +45,22 @@ namespace sdds {
       // returns a non-constant price, can be updated by client
       double& price();
 
-      friend std::ostream& operator<<(std::ostream&, Book&);
+      template <typename T>
+      void fixSpelling(T& spellChecker) {
+         // calls the operator() of spellchecker, passing to it the book description
+         spellChecker(m_desc);
+         // ASSUMPTION: in this design, type T must have an overload of the operator() that accepts a string as a parameter
+      }
+
+      friend std::ostream& operator<<(std::ostream& os, const Book& book);
+
    };
+
+   // erases trailing and leading white space of a string
+   size_t findNewPos(std::string& str, size_t pos, char delim);
+
+   // finds a new position in a complete supplied string, according to a specific delimiter
+   void eraseWhiteSpace(std::string& str);
 
 }
 
