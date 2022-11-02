@@ -60,7 +60,7 @@ namespace sdds {
 
          case 2: return "broken";
 
-         default: return "unknown state";
+         default: throw "Invalid car condition";
       }
    }
 }

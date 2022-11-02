@@ -14,7 +14,7 @@ namespace sdds {
          pickup, minibus, camper
       };
 
-      Type m_typeP{};
+      Type m_type{};
 
       enum State {
          newVan, usedVan, brokenVan
@@ -22,19 +22,23 @@ namespace sdds {
 
       State m_state{};
 
-      enum Purpose {
+      enum Usage {
          delivery, passenger, camping
       };
 
-      Purpose m_purpose{};
+      Usage m_usage{};
 
-      double topSpeed{};
+      double m_topSpeed{};
 
    public:
 
       Van(std::istream&);
 
-
+      virtual double topSpeed() const;
+      virtual void display(std::ostream&) const;
+      virtual std::string condition() const;
+      virtual std::string type() const;
+      virtual std::string usage() const;
    };
 
 }

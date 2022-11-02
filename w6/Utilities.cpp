@@ -16,7 +16,7 @@ namespace sdds {
          vehicle = new Car(is);
 
       else if (line[0] == 'v' || line[0] == 'V')
-         vehicle = new Car(is);
+         vehicle = new Van(is);
 
       else vehicle = nullptr;
 
