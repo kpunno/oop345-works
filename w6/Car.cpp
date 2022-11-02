@@ -1,55 +1,66 @@
 
 #include <iostream>
+#include <iomanip>
 #include <string>
+
 #include "Car.h"
+#include "Utilities.h"
 
 namespace sdds {
 
-   void eraseWhiteSpace(std::string&);
+
 
    Car::Car(std::istream& is) {
       std::string line{};
+
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
-      if (line != "C" || line != "c") {
+      m_maker = line;
 
-         std::getline(is, line, ',');
-         eraseWhiteSpace(line);
-         m_maker = line;
+      std::getline(is, line, ',');
+      eraseWhiteSpace(line);
 
-         std::getline(is, line, ',');
-         eraseWhiteSpace(line);
-         m_state = line[0];
+      if (line[0] == 'n')
+         m_state = newCar;
 
-         std::getline(is, line, ',');
-         eraseWhiteSpace(line);
-         m_topSpeed = std::stod(line);
-      }
+      else if (line[0] == 'u')
+         m_state = usedCar;
+
+      else if (line[0] == 'b')
+         m_state = brokenCar;
+
+      std::getline(is, line, '\n');
+      eraseWhiteSpace(line);
+      m_topSpeed = std::stod(line);
    }
 
    double Car::topSpeed() const {
       return m_topSpeed;
    }
+
    void Car::display(std::ostream& os) const {
-      os << "hello";
-   }
-   std::string Car::condition() const {
-      switch (m_state) {
-         case 'N': return "new";
-         case 'U': return "used";
-         case 'B': return "broken";
-         default : return "unknown state";
-      }
+
+      os << "| ";
+      os << std::right;
+      os << std::setw(10) << m_maker << " | ";
+      os << std::left;
+      os << std::setw(6) << condition() << " | ";
+      os << std::fixed << std::setprecision(2);
+      os << std::setw(6) << m_topSpeed << " |";
+      os << std::endl;
+
    }
 
-   void eraseWhiteSpace(std::string& str) {
-      unsigned int i = 0;
-      while (str[i] == ' ') {
-         str.erase(i, 1);
-      }
-      i = str.length() - 1;
-      while (str[i] == ' ') {
-         str.erase(i--, 1);
+   std::string Car::condition() const {
+      switch (m_state) {
+
+         case 0: return "new";
+
+         case 1: return "used";
+
+         case 2: return "broken";
+
+         default: return "unknown state";
       }
    }
 }

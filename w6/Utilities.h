@@ -1,12 +1,13 @@
 #ifndef UTILITIES_H_
 #define UTILITIES_H_
 
+#include "Vehicle.h"
+
 namespace sdds {
 
-   class Utilities
-   {
-      
-   };
+   Vehicle* createInstance(std::istream&);
+
+   void eraseWhiteSpace(std::string&);
 
 }
 

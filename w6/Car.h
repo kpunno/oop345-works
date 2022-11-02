@@ -2,6 +2,7 @@
 #define CAR_H_
 
 #include <iostream>
+#include <string>
 #include "Vehicle.h"
 
 namespace sdds {
@@ -9,7 +10,12 @@ namespace sdds {
    {
       std::string m_maker{};
       double m_topSpeed{};
-      char m_state{};
+      
+      enum State {
+         newCar, usedCar, brokenCar
+      };
+
+      State m_state{};
 
    public:
 
