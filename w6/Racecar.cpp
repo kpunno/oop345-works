@@ -15,11 +15,11 @@ namespace sdds {
 
    void Racecar::display(std::ostream& os) const {
       Car::display(os);
-
+      os << "*";
    }
 
    double Racecar::topSpeed() const {
-      return Car::topSpeed() * m_booster;
+      return Car::topSpeed() + (Car::topSpeed() * m_booster);
    }
 
 }

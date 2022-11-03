@@ -26,10 +26,18 @@ void loadData(const char* filename, sdds::Autoshop& as)
 		//       - the record is not recognized: the first non-empty character
 		//           on the line is not 'c', 'C', 'r', 'R', 'v', 'V', 'l', or 'L'
 		//       - one of the fields in the record contains invalid data.
-    
+		try {
 			sdds::Vehicle* aVehicle = sdds::createInstance(file);
 			if (aVehicle)
 				as += aVehicle;
+		}
+		catch (std::string message) {
+			std::cerr << message << std::endl;
+		}
+		catch (std::invalid_argument) {
+			file.ignore(1000, '\n');
+			std::cerr << "Invalid record!" << std::endl;;
+		}
 	}
 }
 
@@ -78,7 +86,9 @@ int main(int argc, char** argv)
 	{
 		// TODO: Create a lambda expression that receives as parameter `const sdds::Vehicle*`
 		//         and returns true if the vehicle has a top speed >300km/h
-		auto fastVehicles = ...
+		auto fastVehicles = [](const sdds::Vehicle* vehicle)->bool {
+			return vehicle->topSpeed() > 300 ? true : false;
+		};
 		as.select(fastVehicles, vehicles);
 		std::cout << "--------------------------------\n";
 		std::cout << "|       Fast Vehicles          |\n";
@@ -96,7 +106,10 @@ int main(int argc, char** argv)
 	{
 		// TODO: Create a lambda expression that receives as parameter `const sdds::Vehicle*`
 		//         and returns true if the vehicle is broken and needs repairs.
-		auto brokenVehicles = ...
+		auto brokenVehicles = [](const sdds::Vehicle* vehicle)->bool {
+			return vehicle->condition() == "broken" ? true : false;
+		};
+
 		as.select(brokenVehicles, vehicles);
 		std::cout << "--------------------------------\n";
 		std::cout << "| Cars in need of repair       |\n";
@@ -114,7 +127,9 @@ int main(int argc, char** argv)
 	{
 		// TODO: Create a lambda expression that receives as parameter `const sdds::Vehicle*`
 		//         and returns true if the vehicle is broken and needs repairs.
-		auto brokenVehicles = ...
+		auto brokenVehicles = [](const sdds::Vehicle* vehicle)->bool {
+			return vehicle->condition() == "broken" ? true : false;
+		};
 		av.select(brokenVehicles, vehicles);
 		std::cout << "------------------------------------------------------------\n";
 		std::cout << "|  Vans in need of repair                                  |\n";

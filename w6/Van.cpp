@@ -10,6 +10,8 @@ namespace sdds {
    Van::Van(std::istream& is) {
 
       std::string line{};
+      char c;
+
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
       m_maker = line;
@@ -26,6 +28,11 @@ namespace sdds {
       else if (line[0] == 'c' || line[0] == 'C')
          m_type = camper;
 
+      else {
+         is.ignore(1000, '\n');
+         throw(std::string("Invalid record!"));
+      }
+
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
 
@@ -38,21 +45,40 @@ namespace sdds {
       else if (line[0] == 'c' || line[0] == 'C')
          m_usage = camping;
 
+      else {
+         is.ignore(1000, '\n');
+         throw(std::string("Invalid record!"));
+      }
+
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
 
-      if (line[0] == 'n')
+      if (line[0] == 'n' || line[0] == 'N' || line == "")
          m_state = newVan;
 
-      else if (line[0] == 'u')
+      else if (line[0] == 'u' || line[0] == 'U')
          m_state = usedVan;
 
-      else if (line[0] == 'b')
+      else if (line[0] == 'b' || line[0] == 'B')
          m_state = brokenVan;
 
-      std::getline(is, line, '\n');
+      else {
+         is.ignore(1000, '\n');
+         throw(std::string("Invalid record!"));
+      }
+
+      line = "";
+
+      while (is.peek() != ',' && is.peek() != '\n' && is.peek() != -1) {
+         c = is.get();
+         line += c;
+      }
       eraseWhiteSpace(line);
+
       m_topSpeed = std::stod(line);
+
+      //ignore either delimiter be it ',' or '\n'
+      is.get();
    }
 
    double Van::topSpeed() const {
@@ -70,7 +96,6 @@ namespace sdds {
       os << std::setw(6) << condition() << " | ";
       os << std::fixed << std::setprecision(2);
       os << std::setw(6) << m_topSpeed << " |";
-      os << std::endl;
 
    }
 
@@ -88,7 +113,7 @@ namespace sdds {
    }
 
    std::string Van::type() const {
-      switch (m_state) {
+      switch (m_type) {
 
       case 0: return "pickup";
 
@@ -101,7 +126,7 @@ namespace sdds {
    }
 
    std::string Van::usage() const {
-      switch (m_state) {
+      switch (m_usage) {
 
       case 0: return "delivery";
 

@@ -14,6 +14,13 @@ namespace sdds {
       
       for (auto it = m_vehicles.cbegin(); it != m_vehicles.cend(); ++it) {
          (*it)->display(os);
+         os << std::endl;
+      }
+   }
+
+   Autoshop::~Autoshop() {
+      for (auto it = m_vehicles.cbegin(); it != m_vehicles.cend(); ++it) {
+         delete *it;
       }
    }
 

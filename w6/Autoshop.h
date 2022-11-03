@@ -2,6 +2,7 @@
 #define AUTOSHOP_H_
 
 #include <vector>
+#include <list>
 #include "Vehicle.h"
 
 namespace sdds {
@@ -14,6 +15,13 @@ namespace sdds {
       Autoshop& operator +=(Vehicle*);
 
       void display(std::ostream&) const;
+
+      template <typename T>
+      void select(T test, std::list<const Vehicle*>& vehicles) {
+
+      }
+
+      virtual ~Autoshop();
    };
 
 }
