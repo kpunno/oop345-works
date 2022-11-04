@@ -18,7 +18,12 @@ namespace sdds {
 
       template <typename T>
       void select(T test, std::list<const Vehicle*>& vehicles) {
-
+         for (auto it = m_vehicles.cbegin(); it != m_vehicles.cend(); ++it) {
+            if (test(*it)) {
+               vehicles.push_back(*it);
+            }
+            
+         }
       }
 
       virtual ~Autoshop();

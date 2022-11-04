@@ -12,6 +12,9 @@ namespace sdds {
       std::string line{};
       char c;
 
+      // ignore vehicle type string
+      std::getline(is, line, ',');
+
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
       m_maker = line;
@@ -67,18 +70,14 @@ namespace sdds {
          throw(std::string("Invalid record!"));
       }
 
-      line = "";
-
-      while (is.peek() != ',' && is.peek() != '\n' && is.peek() != -1) {
-         c = is.get();
-         line += c;
-      }
+      std::getline(is, line, ',');
       eraseWhiteSpace(line);
-
-      m_topSpeed = std::stod(line);
-
-      //ignore either delimiter be it ',' or '\n'
-      is.get();
+      try {
+         m_topSpeed = std::stod(line);
+      }
+      catch (std::invalid_argument) {
+         throw(std::string("Invalid record!"));
+      }
    }
 
    double Van::topSpeed() const {
@@ -117,7 +116,7 @@ namespace sdds {
 
       case 0: return "pickup";
 
-      case 1: return "minibus";
+      case 1: return "mini-bus";
 
       case 2: return "camper";
 

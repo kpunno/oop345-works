@@ -9,8 +9,10 @@ namespace sdds {
       std::string line{};
       std::getline(is, line, '\n');
       eraseWhiteSpace(line);
-      if (line[0] == 'e' || line[0] == 'g')
+      if (line[0] == 'e')
          m_consumption = "electric van *";
+      else if (line[0] == 'g')
+         throw(std::string("Invalid record!"));
    }
 
    void Luxuryvan::display(std::ostream& os) const {

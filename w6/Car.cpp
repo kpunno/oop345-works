@@ -15,6 +15,9 @@ namespace sdds {
       std::string line{};
       char c{};
 
+      // ignore type
+      std::getline(is, line, ',');
+
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
       m_maker = line;
@@ -36,20 +39,15 @@ namespace sdds {
          throw(std::string("Invalid record!"));
       }
 
-
-      line = "";
-
-      while (is.peek() != ',' && is.peek() != '\n' && is.peek() != -1) {
-         c = is.get();
-         line += c;
-      }
+      getline(is, line, ',');
       eraseWhiteSpace(line);
+      try {
+         m_topSpeed = std::stod(line);
+      }
+      catch (std::invalid_argument) {
+         throw(std::string("Invalid record!"));
+      }
       
-      m_topSpeed = std::stod(line);
-      
-      
-      //ignore either delimiter be it ',' or '\n'
-      is.get();
    }
 
    double Car::topSpeed() const {

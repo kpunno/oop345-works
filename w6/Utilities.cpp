@@ -1,5 +1,6 @@
 
 #include <string>
+#include <sstream>
 #include "Utilities.h"
 #include "Car.h"
 #include "Van.h"
@@ -13,28 +14,28 @@ namespace sdds {
       Vehicle* vehicle = nullptr;
 
       if (is.peek() != -1) {
-
+         unsigned pos{};
          std::string line{};
-         std::getline(is, line, ',');
+
+         std::getline(is, line, '\n');
+         std::istringstream sstream(line);
          eraseWhiteSpace(line);
-         
 
          if (line[0] == 'c' || line[0] == 'C')
-            vehicle = new Car(is);
+            vehicle = new Car(sstream);
 
          else if (line[0] == 'v' || line[0] == 'V')
-            vehicle = new Van(is);
+            vehicle = new Van(sstream);
 
          else if (line[0] == 'r' || line[0] == 'R')
-            vehicle = new Racecar(is);
+            vehicle = new Racecar(sstream);
 
          else if (line[0] == 'l' || line[0] == 'L')
-            vehicle = new Luxuryvan(is);
+            vehicle = new Luxuryvan(sstream);
 
          else {
             vehicle = nullptr;
             line = line[0];
-            is.ignore(1000, '\n');
             throw(std::string("Unrecognized record type [" + line + "]"));
          }
       }

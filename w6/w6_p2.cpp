@@ -34,10 +34,7 @@ void loadData(const char* filename, sdds::Autoshop& as)
 		catch (std::string message) {
 			std::cerr << message << std::endl;
 		}
-		catch (std::invalid_argument) {
-			file.ignore(1000, '\n');
-			std::cerr << "Invalid record!" << std::endl;;
-		}
+		
 	}
 }
 
