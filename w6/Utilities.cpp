@@ -1,6 +1,22 @@
+/*
+==============
+= WORKSHOP 6 =
+==============
+
+Name----Kristjan Punno
+Email-- - kpunno@myseneca.ca
+ID------ 150695211
+Section - NCC
+Date---- 2022 - 11 - 06
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
 
 #include <string>
 #include <sstream>
+
 #include "Utilities.h"
 #include "Car.h"
 #include "Van.h"
@@ -14,8 +30,13 @@ namespace sdds {
       Vehicle* vehicle = nullptr;
 
       if (is.peek() != -1) {
-         unsigned pos{};
+
          std::string line{};
+
+         // gets first non-blank character of the input stream
+         // validates that the character is a valid character representation of:
+         // a car, racecar, van or luxuryvan
+         // throws a exception if no matching character was found
 
          std::getline(is, line, '\n');
          std::istringstream sstream(line);
@@ -36,12 +57,10 @@ namespace sdds {
          else {
             vehicle = nullptr;
             line = line[0];
-            throw(std::string("Unrecognized record type [" + line + "]"));
+            throw(std::string("Unrecognized record type: [" + line + "]"));
          }
       }
-
       return vehicle;
-
    }
 
    void eraseWhiteSpace(std::string& str) {

@@ -1,0 +1,1 @@
+The vector (like all standard containers) owns the objects inside it. So it is responsible for destroying them. Note: If you vector contains pointers then it owns the pointers (not what the pointers point at). So these need to be deleted

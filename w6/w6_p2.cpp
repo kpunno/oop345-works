@@ -1,14 +1,29 @@
+/*
+==============
+= WORKSHOP 6 =
+==============
+
+Name----Kristjan Punno
+Email-- - kpunno@myseneca.ca
+ID------ 150695211
+Section - NCC
+Date---- 2022 - 11 - 06
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
+
 #include <iostream>
 #include <list>
 #include <iomanip>
 #include <fstream>
+
 #include "Autoshop.h"
 #include "Autoshop.h"
 #include "Utilities.h"
 #include "Utilities.h"
 #include "Luxuryvan.h"
-
-
 
 void loadData(const char* filename, sdds::Autoshop& as)
 {

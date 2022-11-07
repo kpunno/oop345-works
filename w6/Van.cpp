@@ -1,7 +1,22 @@
+/*
+==============
+= WORKSHOP 6 =
+==============
 
+Name----Kristjan Punno
+Email-- - kpunno@myseneca.ca
+ID------ 150695211
+Section - NCC
+Date---- 2022 - 11 - 06
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
 
 #include <iostream>
 #include <iomanip>
+
 #include "Van.h"
 #include "Utilities.h"
 
@@ -10,15 +25,16 @@ namespace sdds {
    Van::Van(std::istream& is) {
 
       std::string line{};
-      char c;
 
       // ignore vehicle type string
       std::getline(is, line, ',');
 
+      // gets van maker
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
       m_maker = line;
 
+      // gets and validates type of van
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
 
@@ -36,6 +52,8 @@ namespace sdds {
          throw(std::string("Invalid record!"));
       }
 
+
+      // gets and validates usage of van
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
 
@@ -53,6 +71,8 @@ namespace sdds {
          throw(std::string("Invalid record!"));
       }
 
+
+      // gets and validates condition of van
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
 
@@ -70,12 +90,13 @@ namespace sdds {
          throw(std::string("Invalid record!"));
       }
 
+      // gets and validates top speed
       std::getline(is, line, ',');
       eraseWhiteSpace(line);
       try {
          m_topSpeed = std::stod(line);
       }
-      catch (std::invalid_argument) {
+      catch (...) {
          throw(std::string("Invalid record!"));
       }
    }
