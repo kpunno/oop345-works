@@ -1,1 +1,24 @@
-The vector (like all standard containers) owns the objects inside it. So it is responsible for destroying them. Note: If you vector contains pointers then it owns the pointers (not what the pointers point at). So these need to be deleted
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-10-19
+
+
+1) Difficulties in designing the implementation:
+
+Designing the classes of car, luxurycar, van and luxuryvan was a reasonably familiar process, and was not much of an ordeal. There was a brief difficulty in catching exceptions that would cause crashes when throwing errors -- this was solved by converting all non-string outputted exceptions that are thrown into std::string exceptions that are caught by a std::string message.
+
+The primary ordeal in designing this program was reading a file with a varying amount of delimiters. I initially tried to accomplish this without using a string stream, but encountered many errors using seekg and tellg to reposition the stream depending on the reading of newline characters and commas near the end of a record. I found that stringstream made it much easier to read the individual attributes that needed to be selected, instead of using a file pointer to modify the reading of the stream positionally.
+
+2) Why delete from autoshop?
+
+The m_vehicles container contains pointers to addresses of vehicles. This vector owns the dynamic memory it points to, which means it is responsible for deallocating the dynamic memory at these addresses.
+
+3) Detecting errors within loadData():
+
+loadData contains a catch block which catches errors returned by Utilities::createInstance(). This catch block will accept errors described at many locations of the createInstance() function, and catches the thrown error message, displaying it to the user to indiciate what the issue is. In my opinion, this seems like the best solution to combat the application crashing when an error occurs. 
+
+If the goal is to achieve corrections to the file that is being read from, the application might serve better by reading the file and outputting these errors before attempting to create an instance of a record; such that the program will point the user to all typos and mismatches in the file before the autoshop is built.
+
+4) The current solution is the best way to accomplish the task at hand. Since we cannot create an object of an abstract class, we declare a pointer that points to the address provided by the dynamic creation of a car, van, racecar or luxuryvan within Utilities::createInstance(). With a different design, it is possible to use non-pointer vectors and lists to accomplish the same task, but the overall design of the program would have to change quite a bit to accomplish this.
