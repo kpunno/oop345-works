@@ -3,6 +3,7 @@
 #define CRIME_STATISTICS_H_
 
 #include <vector>
+#include <list>
 #include <iostream>
 #include <string>
 
@@ -13,8 +14,8 @@ namespace sdds {
       std::string m_district;
       std::string m_crime;
       unsigned int m_year;
-      size_t m_noCases;
-      size_t m_noResolved;
+      size_t m_cases;
+      size_t m_resolved;
    };
 
    class CrimeStatistics {
@@ -26,7 +27,24 @@ namespace sdds {
 
       // iterates through the collection, inserting each crime into ostream
       auto display(std::ostream& out)->void const;
+
+      // sorts crimes based on supplied parameter
+      void sort(const char*);
+
+      // updates [none] in crimes to a new thing
+      void cleanList();
+
+      // returns true if in collection
+      bool inCollection(const char*) const;
+
+      // receives list for a province
+      std::list<Crime> getListForProvince(const char*) const;
+      
    };
+
+
+
+   // *** HELPERS *** //
 
    // splices a string, returning the substring, and erasing the extracted content from line
    std::string splice(std::string&, size_t);

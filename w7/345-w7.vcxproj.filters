@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="w7_p1.cpp">
+    <ClCompile Include="CrimeStatistics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CrimeStatistics.cpp">
+    <ClCompile Include="w7_p2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="sample_output.txt" />
     <Text Include="crimes.txt" />
+    <Text Include="sample_output.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CrimeStatistics.h">
