@@ -10,12 +10,12 @@
 namespace sdds {
 
    struct Crime {
-      std::string m_province;
-      std::string m_district;
-      std::string m_crime;
-      unsigned int m_year;
-      size_t m_cases;
-      size_t m_resolved;
+      std::string m_province{};
+      std::string m_district{};
+      std::string m_crime{};
+      unsigned m_year{};
+      unsigned m_cases{};
+      unsigned m_resolved{};
    };
 
    class CrimeStatistics {

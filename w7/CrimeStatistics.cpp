@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -41,26 +40,26 @@ namespace sdds {
 
    auto CrimeStatistics::display(std::ostream& out)->void const {
 
-      std::for_each(cbegin(m_crimes), cend(m_crimes), [&](const Crime& crime) 
+      std::for_each(cbegin(m_crimes), cend(m_crimes), [&](const Crime& crime)
          { out << crime << std::endl; });
 
       out << std::setw(89) << std::setfill('-') << '\n' << std::setfill(' ');
 
       // accumulates the number of cases -> initalized to 0 -> then accumulates in i and returns sum
-      auto cases = std::accumulate(m_crimes.begin(), m_crimes.end(), 0, [](int i, const Crime& crime) 
+      auto cases = std::accumulate(m_crimes.begin(), m_crimes.end(), 0, [](int i, const Crime& crime)
          { return crime.m_cases + i; });
 
       // accumulates the number of crimes -> initialized to 0 -> then accumulates in i and returns sum
-      auto resolved = std::accumulate(m_crimes.begin(), m_crimes.end(), 0, [](int i, const Crime& crime) 
+      auto resolved = std::accumulate(m_crimes.begin(), m_crimes.end(), 0, [](int i, const Crime& crime)
          { return crime.m_resolved + i; });
 
       out << std::right;
       out << "| " << std::setw(84) << ("Total Crimes:  " + std::to_string(cases)) << " |" << std::endl;
       out << "| " << std::setw(84) << ("Total Resolved Cases:  " + std::to_string(resolved)) << " |" << std::endl;
-      
+
    }
 
-   
+
    void CrimeStatistics::sort(const char* category) {
       if (std::string(category) == "Province") {
          std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs) {
@@ -80,21 +79,33 @@ namespace sdds {
       }
    }
 
-   
+
    void CrimeStatistics::cleanList() {
       std::for_each(begin(m_crimes), end(m_crimes), [](Crime& crime)
          { crime.m_crime = crime.m_crime == "[None]" ? "" : crime.m_crime; });
    }
 
-   
-   bool CrimeStatistics::inCollection(const char*) const {
-      return false;
+
+   bool CrimeStatistics::inCollection(const char* string) const {
+
+      bool match = std::any_of(begin(m_crimes), end(m_crimes), [&](const Crime& crime)
+         { return crime.m_crime == string ? true : false; });
+
+      return match;
    }
 
-   
-   std::list<Crime> CrimeStatistics::getListForProvince(const char*) const {
-      std::list<Crime> temp{};
-      return temp;
+
+   std::list<Crime> CrimeStatistics::getListForProvince(const char* province) const {
+
+      std::list<Crime> provincialList(m_crimes.size());
+      size_t resize = 0;
+
+      std::copy_if(begin(m_crimes), end(m_crimes), begin(provincialList), [&](const Crime& crime)
+         { return (crime.m_province == province) ? resize++, true : false;});
+
+      provincialList.resize(resize);
+
+      return provincialList;
    }
 
    // *** HELPERS *** //
@@ -108,7 +119,6 @@ namespace sdds {
       out << std::setw(6) << crime.m_year << " | ";
       out << std::setw(4) << crime.m_cases << " | ";
       out << std::setw(3) << crime.m_resolved << " |";
-      
 
       return out;
    }
