@@ -40,9 +40,11 @@ namespace sdds {
       }
       token = str.substr(next_pos, new_pos - next_pos);
 
+      m_widthField = m_widthField > (token.length()) ? m_widthField : (token.length());
+
       eraseWhiteSpace(token);
 
-      m_widthField = m_widthField > (new_pos - next_pos) ? m_widthField : (new_pos - next_pos);
+      
       
 
       new_pos++;
