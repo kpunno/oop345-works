@@ -25,6 +25,7 @@
   <ItemGroup>
     <Text Include="crimes.txt" />
     <Text Include="sample_output.txt" />
+    <Text Include="notes.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CrimeStatistics.h">

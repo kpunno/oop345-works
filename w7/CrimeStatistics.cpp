@@ -1,3 +1,17 @@
+/*
+-- WORKSHOP 6 --
+
+Name----Kristjan Punno
+Email-- - kpunno@myseneca.ca
+ID------ 150695211
+Section - NCC
+Date---- 2022 - 11 - 06
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
+
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -38,57 +52,59 @@ namespace sdds {
       }
    }
 
-   auto CrimeStatistics::display(std::ostream& out)->void const {
 
-      std::for_each(cbegin(m_crimes), cend(m_crimes), [&](const Crime& crime)
+   void CrimeStatistics::display(std::ostream& out) const {
+
+      std::for_each(cbegin(m_crimes), cend(m_crimes), [=,&out](const Crime crime)
          { out << crime << std::endl; });
 
       out << std::setw(89) << std::setfill('-') << '\n' << std::setfill(' ');
 
-      // accumulates the number of cases -> initalized to 0 -> then accumulates in i and returns sum
-      auto cases = std::accumulate(m_crimes.begin(), m_crimes.end(), 0, [](int i, const Crime& crime)
+      auto cases = std::accumulate(m_crimes.begin(), m_crimes.end(), 0, [=](int i, const Crime crime)
          { return crime.m_cases + i; });
 
-      // accumulates the number of crimes -> initialized to 0 -> then accumulates in i and returns sum
-      auto resolved = std::accumulate(m_crimes.begin(), m_crimes.end(), 0, [](int i, const Crime& crime)
+      auto resolved = std::accumulate(m_crimes.begin(), m_crimes.end(), 0, [=](int i, const Crime crime)
          { return crime.m_resolved + i; });
 
       out << std::right;
       out << "| " << std::setw(84) << ("Total Crimes:  " + std::to_string(cases)) << " |" << std::endl;
       out << "| " << std::setw(84) << ("Total Resolved Cases:  " + std::to_string(resolved)) << " |" << std::endl;
-
    }
 
 
    void CrimeStatistics::sort(const char* category) {
-      if (std::string(category) == "Province") {
-         std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs) {
-            return lhs.m_province < rhs.m_province; });
-      }
-      else if (std::string(category) == "Crime") {
-         std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs) {
-            return lhs.m_crime < rhs.m_crime; });
-      }
-      else if (std::string(category) == "Cases") {
-         std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs) {
-            return lhs.m_cases < rhs.m_cases; });
-      }
-      else if (std::string(category) == "Resolved") {
-         std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs) {
-            return lhs.m_resolved < rhs.m_resolved; });
-      }
+
+      std::sort(begin(m_crimes), end(m_crimes), [=](const Crime lhs, const Crime rhs) {
+         if (category == "Province") { 
+            return lhs.m_province < rhs.m_province; 
+         }
+         else if (category == "Crime") {
+            return lhs.m_crime < rhs.m_crime;
+         }
+         else if (category == "Cases") {
+            return lhs.m_cases < rhs.m_cases;
+         }
+         else if (category == "Resolved") {
+            return lhs.m_resolved < rhs.m_resolved;
+         }
+      });
    }
 
 
    void CrimeStatistics::cleanList() {
-      std::for_each(begin(m_crimes), end(m_crimes), [](Crime& crime)
-         { crime.m_crime = crime.m_crime == "[None]" ? "" : crime.m_crime; });
+
+      std::transform(begin(m_crimes), end(m_crimes), begin(m_crimes), [=](Crime crime) { 
+         if (crime.m_crime == "[None]") { 
+            crime.m_crime.erase();
+         } 
+         return crime;
+      });
    }
 
 
    bool CrimeStatistics::inCollection(const char* string) const {
 
-      bool match = std::any_of(begin(m_crimes), end(m_crimes), [&](const Crime& crime)
+      bool match = std::any_of(begin(m_crimes), end(m_crimes), [=](const Crime crime)
          { return crime.m_crime == string ? true : false; });
 
       return match;
@@ -97,20 +113,20 @@ namespace sdds {
 
    std::list<Crime> CrimeStatistics::getListForProvince(const char* province) const {
 
-      std::list<Crime> provincialList(m_crimes.size());
-      size_t resize = 0;
+      size_t size = std::count_if(begin(m_crimes), end(m_crimes), [=](const Crime crime)
+         { return (crime.m_province == province) ? true : false; });
 
-      std::copy_if(begin(m_crimes), end(m_crimes), begin(provincialList), [&](const Crime& crime)
-         { return (crime.m_province == province) ? resize++, true : false;});
+      std::list<Crime> provincialList(size);
 
-      provincialList.resize(resize);
+      std::copy_if(begin(m_crimes), end(m_crimes), begin(provincialList), [=](const Crime crime)
+         { return (crime.m_province == province) ? true : false;});
 
       return provincialList;
    }
 
    // *** HELPERS *** //
 
-   auto operator<<(std::ostream& out, const Crime& crime)->std::ostream& {
+   std::ostream& operator<<(std::ostream& out, const Crime& crime) {
       out << std::left << "| ";
       out << std::setw(21) << crime.m_province << " | ";
       out << std::setw(15) << crime.m_district << " | ";
@@ -123,14 +139,14 @@ namespace sdds {
       return out;
    }
 
-   auto splice(std::string& line, size_t length)->std::string {
+   std::string splice(std::string& line, size_t length) {
       std::string output = line.substr(0, length);
       eraseWhiteSpace(output);
       line.erase(0, length);
       return output;
    }
 
-   auto eraseWhiteSpace(std::string& str)->void {
+   void eraseWhiteSpace(std::string& str) {
       unsigned int i = 0;
       if (str != "") {
          while (str[i] == ' ') {

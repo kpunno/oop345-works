@@ -27,7 +27,9 @@ int main(int argc, char** argv)
 		std::cout << std::setw(3) << i + 1 << ": " << argv[i] << '\n';
 	std::cout << "--------------------------\n\n";
 
+
 	sdds::CrimeStatistics statistics(argv[1]);
+
 
 	printHeader("The original Statistics");
 	statistics.display(std::cout);

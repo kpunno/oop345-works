@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="crimes.txt" />
+    <Text Include="notes.txt" />
     <Text Include="sample_output.txt" />
   </ItemGroup>
   <ItemGroup>

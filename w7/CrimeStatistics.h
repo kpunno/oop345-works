@@ -1,3 +1,16 @@
+/*
+-- WORKSHOP 6 --
+
+Name----Kristjan Punno
+Email-- - kpunno@myseneca.ca
+ID------ 150695211
+Section - NCC
+Date---- 2022 - 11 - 06
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
 
 #ifndef CRIME_STATISTICS_H_
 #define CRIME_STATISTICS_H_
@@ -26,7 +39,7 @@ namespace sdds {
       CrimeStatistics(const char*);
 
       // iterates through the collection, inserting each crime into ostream
-      auto display(std::ostream& out)->void const;
+      void display(std::ostream& out) const;
 
       // sorts crimes based on supplied parameter
       void sort(const char*);
@@ -50,10 +63,10 @@ namespace sdds {
    std::string splice(std::string&, size_t);
 
    // trims trailing and leading whitespace
-   auto eraseWhiteSpace(std::string&)->void;
+   void eraseWhiteSpace(std::string&);
 
    // inserts a crime into ostream
-   auto operator<<(std::ostream& out, const Crime& crime)->std::ostream&;
+   std::ostream& operator<<(std::ostream& out, const Crime& crime);
 }
 
 #endif // CRIME_STATISTICS_H_
