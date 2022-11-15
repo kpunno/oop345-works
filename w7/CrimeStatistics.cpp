@@ -71,25 +71,24 @@ namespace sdds {
       out << "| " << std::setw(84) << ("Total Resolved Cases:  " + std::to_string(resolved)) << " |" << std::endl;
    }
 
-
    void CrimeStatistics::sort(const char* category) {
-
-      std::sort(begin(m_crimes), end(m_crimes), [=](const Crime lhs, const Crime rhs) {
-         if (category == "Province") { 
-            return lhs.m_province < rhs.m_province; 
-         }
-         else if (category == "Crime") {
-            return lhs.m_crime < rhs.m_crime;
-         }
-         else if (category == "Cases") {
-            return lhs.m_cases < rhs.m_cases;
-         }
-         else if (category == "Resolved") {
-            return lhs.m_resolved < rhs.m_resolved;
-         }
-      });
+      if (std::string(category) == "Province") {
+         std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs)
+            { return lhs.m_province < rhs.m_province; });
+      }
+      else if (std::string(category) == "Crime") {
+         std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs)
+            { return lhs.m_crime < rhs.m_crime;; });
+      }
+      else if (std::string(category) == "Cases") {
+         std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs)
+            { return lhs.m_cases < rhs.m_cases; });
+      }
+      else if (std::string(category) == "Resolved") {
+         std::sort(begin(m_crimes), end(m_crimes), [](const Crime lhs, const Crime rhs)
+            { return lhs.m_resolved < rhs.m_resolved; });
+      }
    }
-
 
    void CrimeStatistics::cleanList() {
 

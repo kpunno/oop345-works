@@ -1,0 +1,42 @@
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-11-14
+
+
+1) STL Functions used in the crimes module
+
+  a) I used the for_each() function within display() as a means of displaying all the crime records held by the m_crimes vector. Since each record needed to be inserted into ostream, it seemed to be the optimal choice for inserting unmodifiable Crime objects into the output stream.
+
+  b) I used the transform() function in cleanList(), after originally using the for_each() function. I sought to use a different algorithm that might better inidicate the underlying purpose (transforming the objects), and also allow me to get experience using more algorithms, instead of repeating one in two different scenarios.
+
+  c) I used the any_of() function to return a boolean value based on whether a certain object passed to inCollection() is identified within the m_crimes vector. This seemed to be the obvious choice as it returns a boolean value if the match is found -- "any of" the objects match the argument.
+
+  d) I used two instances of the accumulate() function within display() to gather the totals for both resolved cases and total cases respectively. This function is the most appropriate for gathering a sum for particular values within objects that are contained in an array.
+
+  e) I used the sort() function within my defined sort() function, the implementation uses a lambda that returns the appropriate evaluation (string comparison, or integer value comparison), based on the inputted string.
+
+  f) I used the count_if() function within the getListForProvince() method, which iterates through the m_crimes vector, incrementing the counter if the current object contains a matching string to the supplied "Province" string. The returned value is used to calculate the size of the list of provinces that will be returned by the getListForProvince() method.
+
+  g) Also within getListForProvince, I used the copy_if() function to copy all elements containing the matching string to the newly created Crime list.
+
+
+2) The advantages of using STL algorithms
+
+STL algorithms proved themselves to be an invaluable tool for expediting the design of this application. Designing one custom algorithm, nevermind 7 of them, can be an arduous task. This application would likely take much longer to develop without using an already-defined set of template algorithms to process the set of Crime objects.
+
+3) Redesigning the sort function
+
+The obvious solution to feedback during run-time is to generate exceptions or an else-case, that would inform the user of spelling mistakes. However, if we the goal is to disallow compilation of the program when the argument is misspelled, it would be best to use an enumeration argument rather than a string argument. We can define an enumeration as follows:
+
+enum SortType { Province, Crime, Cases, Resolved };
+
+Now, we will define the function as follows:
+
+void CrimeStatistics::sort(SortType input);
+
+This function will only allow one of the four types declared within the SortType enumeration. Any other values supplied to the function will not be recognized by the compiler, and thus the application will not be compiled.
+
+
+
