@@ -34,14 +34,15 @@ namespace sdds {
       else if (new_pos == std::string::npos) {
          more = false;
       }
+
+      // new_pos represents field length here
       token = str.substr(next_pos, new_pos - next_pos);
 
       m_widthField = m_widthField > token.length() ? m_widthField : token.length();
 
+      // adds one to token length (for delimiter) -> assigning a new position
+      next_pos += token.length() + 1;
       eraseWhiteSpace(token);
-
-      new_pos++;
-      next_pos += new_pos - next_pos;
 
       return token;
    }
