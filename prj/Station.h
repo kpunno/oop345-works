@@ -1,3 +1,10 @@
+// Name: Kristjan Punno
+// Seneca Student ID: 150695211
+// Seneca email: kpunno@myseneca.ca
+// Date of completion:
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 
 #ifndef STATION_H_
 #define STATION_H_

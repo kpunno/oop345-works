@@ -1,3 +1,10 @@
+// Name: Kristjan Punno
+// Seneca Student ID: 150695211
+// Seneca email: kpunno@myseneca.ca
+// Date of completion:
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 
 #ifndef UTILITIES_H_
 #define UTILITIES_H_
@@ -13,6 +20,7 @@ namespace sdds {
 
    public:
 
+      // sets field width
       void setFieldWidth(size_t newWidth);
 
       size_t getFieldWidth() const;
