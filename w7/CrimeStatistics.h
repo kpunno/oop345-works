@@ -52,6 +52,9 @@ namespace sdds {
 
       // receives list for a province
       std::list<Crime> getListForProvince(const char*) const;
+
+      // inserts a crime into ostream
+      friend std::ostream& operator<<(std::ostream& out, const Crime& crime);
       
    };
 
@@ -64,9 +67,6 @@ namespace sdds {
 
    // trims trailing and leading whitespace
    void eraseWhiteSpace(std::string&);
-
-   // inserts a crime into ostream
-   std::ostream& operator<<(std::ostream& out, const Crime& crime);
 }
 
 #endif // CRIME_STATISTICS_H_
