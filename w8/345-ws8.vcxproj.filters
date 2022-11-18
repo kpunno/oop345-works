@@ -34,10 +34,10 @@
     <Text Include="sample_output.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="w8_p1.cpp">
+    <ClCompile Include="WritingRecord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WritingRecord.cpp">
+    <ClCompile Include="w8_p2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

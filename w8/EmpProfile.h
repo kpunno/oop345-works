@@ -32,7 +32,6 @@ namespace sdds {
 			os << std::setw(10) << id << std::setw(10) << salary << std::endl;
 		}
 	};
-
 	
 	struct EmployeeWage {
 		std::string name{};

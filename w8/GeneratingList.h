@@ -54,10 +54,17 @@ namespace sdds {
 
 		//TODO: Overload the += operator with a raw pointer
 		// as a second operand.
-		void operator+=(T*& ptr) {
+		void operator+=(T* ptr) {
 			list.push_back(*ptr);
 		}
 
+		//TODO: Overload the += operator with a smart pointer
+		// as a second operand.
+		void operator+=(std::unique_ptr<T>&& ptr) {
+			list.push_back(*ptr);
+		}
+
+		
 		void print(std::ostream& os) const {
 			os << std::fixed << std::setprecision(2);
 			for (auto& e : list)

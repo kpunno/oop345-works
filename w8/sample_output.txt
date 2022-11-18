@@ -36,9 +36,29 @@ Destructor                 [3]
 Destructor                 [2]
 ERROR: *** Employees salaray range is not valid
 
+********************************************
+* Merging wrong salaries using Smart Pointers
+********************************************
+Ovdrloaded Constructor     [4]
+Copy Constructor           [5] from [4]
+Destructor                 [4]
+Ovdrloaded Constructor     [6]
+Destructor                 [6]
+Destructor                 [5]
+ERROR: *** Employees salaray range is not valid
+
 
 ********************************************
 * Merging correct salaries using Raw Pointers
+********************************************
+Employee Name    Salary
+           Mike  95875.12
+           Jack  15478.54
+           Kyle  35715.23
+          Carol  33525.96
+
+********************************************
+* Merging good prices using Smart Pointers
 ********************************************
 Employee Name    Salary
            Mike  95875.12

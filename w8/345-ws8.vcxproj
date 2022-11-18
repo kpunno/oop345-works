@@ -152,7 +152,7 @@
     <Text Include="sample_output.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="w8_p1.cpp" />
+    <ClCompile Include="w8_p2.cpp" />
     <ClCompile Include="WritingRecord.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,14 +1,16 @@
-#include <algorithm>
+
+#include <memory>
 #include "GeneratingList.h"
 #include "EmpProfile.h"
 #include "WritingRecord.h"
+
 
 using namespace std;
 
 namespace sdds {
 	GeneratingList<EmployeeWage> writeRaw(const GeneratingList<Employee>& emp, const GeneratingList<Salary>& sal) {
 		GeneratingList<EmployeeWage> activeEmp;
-		
+
 		// iterate through emp (containing names)
 		for (size_t i{ 0 }; i < emp.size(); i++) {
 
@@ -35,7 +37,7 @@ namespace sdds {
 							// continue excecution by passing exception once more
 							throw;
 						}
-						
+
 						activeEmp += ptr;
 						delete ptr;
 						ptr = nullptr;
@@ -43,6 +45,37 @@ namespace sdds {
 				}
 			}
 		}
+		return activeEmp;
+	}
+
+	GeneratingList<EmployeeWage> writeSmart(const GeneratingList<Employee>& emp, const GeneratingList<Salary>& sal) {
+		GeneratingList<EmployeeWage> activeEmp;
+		// TODO: Add your code here to build a list of employees
+		//         using smart pointers
+
+		// iterate through emp (containing names)
+		for (size_t i{ 0 }; i < emp.size(); i++) {
+
+			// for each employee iterate through sal ...
+			for (size_t j{ 0 }; j < sal.size(); j++) {
+
+				// if a match is found between a 'name' and a 'salary'
+				if (emp[i].id == sal[j].id) {
+
+					// if the SIN is valid
+					if (activeEmp.luhnAlgo(emp[i].id)) {
+
+						// ptr points to dynamically allocated EmployeeWage
+						std::unique_ptr<EmployeeWage> ptr(new EmployeeWage{ emp[i].name, sal[j].salary });
+						ptr->rangeValidator();
+						activeEmp += std::move(ptr);
+						
+						
+					}
+				}
+			}
+		}
+		
 		return activeEmp;
 	}
 }
