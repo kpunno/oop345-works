@@ -24,14 +24,25 @@ namespace sdds {
 						// ptr points to dynamically allocated EmployeeWage
 						EmployeeWage* ptr = new EmployeeWage{ emp[i].name, sal[j].salary };
 
-						// validate the salary as well
-						ptr->rangeValidator();
+						// try validation
+						try {
+							ptr->rangeValidator();
+						}
+						// ensure deletion if exception occurs
+						catch (...) {
+							delete ptr;
+
+							// continue excecution by passing exception once more
+							throw;
+						}
+						
 						activeEmp += ptr;
+						delete ptr;
+						ptr = nullptr;
 					}
 				}
 			}
 		}
-		
 		return activeEmp;
 	}
 }
