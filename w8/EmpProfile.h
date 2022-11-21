@@ -1,3 +1,15 @@
+/*
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-11-20
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
+
 #ifndef SDDS_EMPPROFILE_H
 #define SDDS_EMPPROFILE_H
 
@@ -78,7 +90,7 @@ namespace sdds {
 
 		void rangeValidator() const {
 			if (m_salary > 99999 || m_salary < 0) {
-				throw(std::string("*** Employees salary range is not valid!"));
+				throw(std::string("*** Employees salaray range is not valid"));
 			}
 		}
 

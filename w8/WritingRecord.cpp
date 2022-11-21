@@ -1,3 +1,14 @@
+/*
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-11-20
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
 
 #include <memory>
 #include "GeneratingList.h"
@@ -5,7 +16,6 @@
 #include "WritingRecord.h"
 
 
-using namespace std;
 
 namespace sdds {
 	GeneratingList<EmployeeWage> writeRaw(const GeneratingList<Employee>& emp, const GeneratingList<Salary>& sal) {
@@ -34,11 +44,11 @@ namespace sdds {
 						catch (...) {
 							delete ptr;
 
-							// continue excecution by passing exception once more
+							// continue to throw
 							throw;
 						}
 
-						activeEmp += ptr;
+						activeEmp += std::move(ptr);
 						delete ptr;
 						ptr = nullptr;
 					}
@@ -67,10 +77,9 @@ namespace sdds {
 
 						// ptr points to dynamically allocated EmployeeWage
 						std::unique_ptr<EmployeeWage> ptr(new EmployeeWage{ emp[i].name, sal[j].salary });
+
 						ptr->rangeValidator();
 						activeEmp += std::move(ptr);
-						
-						
 					}
 				}
 			}

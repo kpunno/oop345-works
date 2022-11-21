@@ -1,3 +1,15 @@
+/*
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-11-20
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
+
 #ifndef SDDS_GENERATINGLIST_H
 #define SDDS_GENERATINGLIST_H
 
@@ -36,9 +48,9 @@ namespace sdds {
 		//      valadity of SIN No's
 		bool luhnAlgo(const std::string str) {
 			int result{ 0 }, count{ 0 };
-			int i = static_cast<int>(str.length() - 1);
+			
 
-			for (i; i >= 0; i--) {
+			for (int i = static_cast<int>(str.length() - 1); i >= 0; i--) {
 				++count;
 				int val = str[i] - '0';
 				if (count % 2 == 0) {
@@ -54,7 +66,7 @@ namespace sdds {
 
 		//TODO: Overload the += operator with a raw pointer
 		// as a second operand.
-		void operator+=(T* ptr) {
+		void operator+=(T*&& ptr) {
 			list.push_back(*ptr);
 		}
 
