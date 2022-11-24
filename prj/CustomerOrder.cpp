@@ -1,7 +1,7 @@
 // Name: Kristjan Punno
 // Seneca Student ID: 150695211
 // Seneca email: kpunno@myseneca.ca
-// Date of completion: 2022-11-14
+// Date of completion: 2022-11-23
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
@@ -38,7 +38,7 @@ namespace sdds {
          bool more{ true };
          m_lstItem = new Item* [m_cntItem]{};
 
-         for (int i{ 0 }; i < m_cntItem; i++) {
+         for (unsigned i{ 0 }; i < m_cntItem; i++) {
             m_lstItem[i] = new Item(ut.extractToken(record, pos, more));
             m_widthField = ut.getFieldWidth() > m_widthField ? ut.getFieldWidth() : m_widthField;
          }
@@ -47,7 +47,7 @@ namespace sdds {
    }
 
    CustomerOrder::CustomerOrder(const CustomerOrder& order) {
-      throw("EXCEPTION");
+      throw("Copy construction is disallowed!");
    }
 
    CustomerOrder::CustomerOrder(CustomerOrder&& order) noexcept {
@@ -57,22 +57,29 @@ namespace sdds {
    CustomerOrder& CustomerOrder::operator=(CustomerOrder&& order) noexcept {
       
       if (this != &order) {
-         m_name = order.m_name;
-         m_product = order.m_product;
+         if (m_cntItem) {
+            for (unsigned i{ 0 }; i < m_cntItem; i++) {
+               delete m_lstItem[i];
+            }
+         }
+         delete [] m_lstItem;
+
          m_cntItem = order.m_cntItem;
          m_lstItem = order.m_lstItem;
-
+         
          order.m_cntItem = 0;
          order.m_lstItem = nullptr;
+
+         m_name = order.m_name;
+         m_product = order.m_product;
+         m_widthField = order.m_widthField;
       }
       return *this;
    }
 
    CustomerOrder::~CustomerOrder() {
       for (unsigned i{ 0 }; i < m_cntItem; i++) {
-         if (m_lstItem[i] != nullptr) {
-            delete m_lstItem[i];
-         }
+         delete m_lstItem[i];
       }
       delete [] m_lstItem;
    }
