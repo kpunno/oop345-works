@@ -63,15 +63,17 @@ namespace sdds{
            char ch{ '\n' };
 
            std::ofstream ofs(filename, std::ios::binary | std::ios::trunc);
+           if (!ofs) {
+              throw("Invalid file name!");
+           }
            ofs.write((const char*)&rows, sizeof(rows));
            ofs.write((const char*)&colSize, sizeof(colSize));
-           ofs.write((const char*)(&ch), sizeof(ch));
+
            for (unsigned i{ 0 }; i < rows; i++) {
-              ofs.write(map[i].c_str(), colSize + 1);
+              ofs.write(map[i].c_str(), colSize);
            }
            
-
-            // END TODO
+            // !TODO
         }
         else{
             throw std::string("Treasure map is empty!");
@@ -88,24 +90,26 @@ namespace sdds{
         //       Afterwards is each row of the map itself.
         //       If the file cannot be open, raise an exception to inform
         //       the client.
+
+
        std::ifstream ifs(filename, std::ios::binary);
+
+       if (!ifs) {
+          throw("Invalid file name!");
+       }
+
        ifs.read((char*)&rows, sizeof(rows));
        ifs.read((char*)&colSize, sizeof(colSize));
        map = new std::string[rows];
 
        char ch{};
-       ifs.read((char*)&ch, sizeof(ch));
-       size_t size{};
-       ch = -1;
+
        for (unsigned i{ 0 }; i < rows; i++) {
           ch = -1;
-
-          // COL SIZE IS IN FILE -- SHOULD USE THIS!
-
-          do {
+          for (unsigned j{ 0 }; j < colSize; j++) {
              ifs.read((char*)&ch, sizeof(ch));
              map[i] += ch;
-          } while (ch != '\0');
+          };
        }
 
         // END TODO
