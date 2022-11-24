@@ -60,16 +60,14 @@ namespace sdds{
             //         then each of the rows of the map.
             //       If the file cannot be open, raise an exception to
             //         inform the client.
-           char ch{ '\0' };
+           char ch{ '\n' };
 
-           std::ofstream ofs(filename, std::ios::binary);
-           ofs.write((const char*)(&rows), sizeof(rows));
+           std::ofstream ofs(filename, std::ios::binary | std::ios::trunc);
+           ofs.write((const char*)&rows, sizeof(rows));
+           ofs.write((const char*)&colSize, sizeof(colSize));
            ofs.write((const char*)(&ch), sizeof(ch));
            for (unsigned i{ 0 }; i < rows; i++) {
-              for (unsigned j{ 0 }; map[i][j] != ch; j++) {
-                 ofs.write((const char*)&map[i][j], sizeof map[i]);
-              }
-              ofs.write((const char*)&ch, sizeof(ch));
+              ofs.write(map[i].c_str(), colSize + 1);
            }
            
 
@@ -83,30 +81,31 @@ namespace sdds{
     void TreasureMap::recall(const char* filename){
         // Binary read
         // TODO: Open a binary file stream to the filename
-        //         and read from it to populate the current object.
+        //       and read from it to populate the current object.
         //       The first 4 bytes of the file will be the number of rows
-        //         for the map followed another 4 bytes for the colSize
-        //         of each row in the map.
+        //       for the map followed another 4 bytes for the colSize
+        //       of each row in the map.
         //       Afterwards is each row of the map itself.
         //       If the file cannot be open, raise an exception to inform
-        //         the client.
+        //       the client.
        std::ifstream ifs(filename, std::ios::binary);
-       size_t rows;
        ifs.read((char*)&rows, sizeof(rows));
+       ifs.read((char*)&colSize, sizeof(colSize));
        map = new std::string[rows];
 
        char ch{};
        ifs.read((char*)&ch, sizeof(ch));
-       
+       size_t size{};
+       ch = -1;
        for (unsigned i{ 0 }; i < rows; i++) {
           ch = -1;
-          for (unsigned j{ 0 }; ch != '\0'; j++) {
+
+          // COL SIZE IS IN FILE -- SHOULD USE THIS!
+
+          do {
              ifs.read((char*)&ch, sizeof(ch));
              map[i] += ch;
-             if (ch == '\0') {
-                ch = '\0';
-             }
-          }
+          } while (ch != '\0');
        }
 
         // END TODO
