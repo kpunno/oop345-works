@@ -21,9 +21,11 @@ namespace sdds{
     size_t digForTreasure(const std::string& str, char mark);
 
     class TreasureMap{
+
         size_t rows = 0;
         size_t colSize = 0;
         std::string* map = nullptr;
+
     public:
         TreasureMap(const char* filename);
         ~TreasureMap();
