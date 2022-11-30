@@ -36,4 +36,4 @@ namespace sdds {
 
 }
 
-#endif // UTILITIES_H_
+#endif // !UTILITIES_H_

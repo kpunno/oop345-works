@@ -60,10 +60,10 @@ namespace sdds {
 
       void fillItem(Station&, std::ostream&);
 
-      void display(std::ostream&);
+      void display(std::ostream&) const;
 
    };
 
 }
 
-#endif // CUSTOM_ORDER_H_
+#endif // !CUSTOM_ORDER_H_

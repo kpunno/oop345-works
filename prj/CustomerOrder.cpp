@@ -135,7 +135,7 @@ namespace sdds {
       }
    }
 
-   void CustomerOrder::display(std::ostream& os) {
+   void CustomerOrder::display(std::ostream& os) const {
       os << m_name << " - " << m_product << std::endl;
       for (unsigned i{ 0 }; i < m_cntItem; i++) {
          os << std::setfill('0');
