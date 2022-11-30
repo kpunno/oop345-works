@@ -26,6 +26,10 @@ namespace sdds {
 
    public:
 
+      Workstation& operator=(const Workstation&) = delete;
+
+      Workstation& operator=(const Workstation&&) = delete;
+
       Workstation(const std::string& str);
 
       void fill(std::ostream&);
