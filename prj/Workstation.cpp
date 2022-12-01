@@ -5,7 +5,9 @@
 
 namespace sdds {
 
-   
+   std::deque<CustomerOrder> g_pending{};
+   std::deque<CustomerOrder> g_completed{};
+   std::deque<CustomerOrder> g_incomplete{};
 
    Workstation::Workstation(const std::string& str) : Station(str) {}
 
@@ -30,7 +32,7 @@ namespace sdds {
    void Workstation::display(std::ostream& os) const {
       os << getItemName();
       os << " --> ";
-      os << (m_pNextStation ? m_pNextStation->getItemName() : "End of line");
+      os << (m_pNextStation != nullptr ? m_pNextStation->getItemName() : "End of line");
       os << std::endl;
    }
 

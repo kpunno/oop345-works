@@ -1,4 +1,5 @@
 
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -75,7 +76,7 @@ namespace sdds {
 
          // search with each station
 
-         auto it2 = std::find_if(begin(stations), end(stations), [=](const Workstation* station)
+         auto it = std::find_if(begin(stations), end(stations), [=](const Workstation* station)
             {
                bool unique = std::none_of(begin(stations), end(stations), [=](const Workstation* station2)
                   {
@@ -85,15 +86,9 @@ namespace sdds {
                return unique;
             });
 
-         size_t first = it2 - begin(stations);
+         size_t first = it - begin(stations);
 
          m_firstStation = stations[first];
-
-         std::cout << " DEBUG " << std::endl;
-         std::cout << " DEBUG " << std::endl;
-         m_firstStation->display(std::cout);
-         std::cout << " DEBUG " << std::endl;
-         std::cout << " DEBUG " << std::endl;
 
       }
       catch (...) {
@@ -102,13 +97,25 @@ namespace sdds {
    }
 
    void LineManager::reorderStations() {
+
+      Workstation* node_1{};
+      Workstation* node_2{};
+
+      std::vector<Workstation*> temp;
+
+      node_1 = m_firstStation;
+      node_2 = node_1->getNextStation();
+
+      m_firstStation->display(std::cout);
       
+      while (node_2) {
+         
+         temp.push_back(node_2);
+         node_1 = node_2;
+         node_2 = node_1->getNextStation();
+      }
 
-      // activeStn = it - begin(stations);
-
-      // SORT
-
-      // std::sort(begin(m_activeLine), end(m_activeLine), [=](const Workstation* station);
+      m_activeLine = temp;
    }
 
    bool LineManager::run(std::ostream& os) {
@@ -118,7 +125,7 @@ namespace sdds {
    }
 
    void LineManager::display(std::ostream& os) const {
-      std::for_each(begin(m_activeLine), end(m_activeLine), [=,&os](const Workstation* station)
+      std::for_each(cbegin(m_activeLine), cend(m_activeLine), [&](const Workstation* station)
          {
             station->display(os);
          });

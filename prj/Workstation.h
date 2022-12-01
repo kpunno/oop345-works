@@ -14,9 +14,9 @@ namespace sdds {
    // THEN -> REORDER THE FILE ACCORDING TO THE MATCHES
    // HINT: STARTS WITH BED
 
-   static std::deque<CustomerOrder> g_pending{};
-   static std::deque<CustomerOrder> g_completed{};
-   static std::deque<CustomerOrder> g_incomplete{};
+   extern std::deque<CustomerOrder> g_pending;
+   extern std::deque<CustomerOrder> g_completed;
+   extern std::deque<CustomerOrder> g_incomplete;
 
    class Workstation : public Station
    {
