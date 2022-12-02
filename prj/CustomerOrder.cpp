@@ -101,7 +101,6 @@ namespace sdds {
       // returns true if all items specified by argument have been filled
       // if item doesn't exist, returns true
       bool filled{ true };
-      unsigned count{};
       for (size_t i{ 0 }; i < m_cntItem; i++) {
          if (m_lstItem[i]->m_itemName == item && !m_lstItem[i]->m_isFilled) {
                filled = false;

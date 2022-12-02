@@ -96,6 +96,7 @@ namespace sdds {
          // set first station
          m_firstStation = stations[first];
 
+         // set customer order count
          m_cntCustomerOrder = g_pending.size();
 
       }
@@ -130,22 +131,16 @@ namespace sdds {
    bool LineManager::run(std::ostream& os) {
 
       static size_t calls = 0;
+
+      // represents number of calls to function
       calls++;
-      if (calls == 6) {
-         int x = 0;
-      }
+
       os << "Line Manager Iteration: " << calls << std::endl;
 
-      // throws here
       if (g_pending.size()) {
          *m_firstStation += std::move(g_pending.front());
          g_pending.pop_front();
       }
-      
-      if (calls == 20) {
-         int x = 0;
-      }
-      
       
       for (Workstation* e : m_activeLine) {
          e->fill(os);
