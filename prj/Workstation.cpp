@@ -1,3 +1,10 @@
+// Name: Kristjan Punno
+// Seneca Student ID: 150695211
+// Seneca email: kpunno@myseneca.ca
+// Date of completion: 2022-12-01
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 
 #include <iostream>
 #include <string>
