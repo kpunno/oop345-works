@@ -1,13 +1,18 @@
-
-//****************************** DO NOT MODIFY ******************************
-
-//****************************** DO NOT MODIFY ******************************
-
-//****************************** DO NOT MODIFY ******************************
-
 // Workshop 9 - Multi-threading
 // TreasureMap.h
 // Michael Huang
+
+/*
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-12-01
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
 
 #ifndef SDDS_TREASUREMAP_H
 #define SDDS_TREASUREMAP_H

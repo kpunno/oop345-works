@@ -1,6 +1,19 @@
+
 // Workshop 9 - Multi-threading
 // TreasureMap.cpp
 // Michael Huang
+
+/*
+Name ---- Kristjan Punno
+Email --- kpunno@myseneca.ca
+ID ------ 150695211
+Section - NCC
+Date ---- 2022-12-01
++ ---------------------------------------------------------------------- +
+| I have done all the coding by myself and only copied the code that  |
+|  my professor provided to complete my workshops and assignments. |
++---------------------------------------------------------------------- +
+*/
 
 #include <iostream>
 #include <fstream>
@@ -62,7 +75,6 @@ namespace sdds {
          //         then each of the rows of the map.
          //       If the file cannot be open, raise an exception to
          //         inform the client.
-         char ch{ '\n' };
 
          std::ofstream ofs(filename, std::ios::binary);
          if (!ofs) {
@@ -141,7 +153,6 @@ namespace sdds {
       size_t remainder = rows % 4;
       size_t divisible = rows - remainder;
       std::string partition[4]{};
-      size_t threadCount = 4;
       
       for (size_t i = 0; i < (divisible / 4); i++) {
          partition[0] += map[i];
