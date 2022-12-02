@@ -18,8 +18,8 @@ namespace sdds {
       int m_id{};
       std::string m_name{};
       std::string m_desc{};
-      unsigned m_serial{};
-      unsigned m_quantity{};
+      size_t m_serial{};
+      size_t m_quantity{};
       static size_t m_widthField;
       static int m_idGenerator;
 

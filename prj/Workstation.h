@@ -36,7 +36,7 @@ namespace sdds {
 
       bool attemptToMoveOrder();
 
-      void setNextStation(Workstation* station);
+      void setNextStation(Workstation* station = nullptr);
 
       Workstation* getNextStation() const;
 

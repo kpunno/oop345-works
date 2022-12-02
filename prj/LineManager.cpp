@@ -9,9 +9,13 @@
 #include "LineManager.h"
 #include "Workstation.h"
 
+
 namespace sdds {
 
    LineManager::LineManager(const std::string& file, const std::vector<Workstation*>& stations) {
+
+      // instance of utilities for token extraction
+      // assuming file may contain whitespace
       Utilities ut;
       ut.setDelimiter('|');
 
@@ -22,25 +26,34 @@ namespace sdds {
       try {
          while (ifs.good()) {
 
+            // represent indices of the stations vector
+            // to give meaning to the list of linked objects
             size_t activeStn{}, nextStn{};
 
             // more is a flag for extractToken()
             // EOL indicates the last item in the 'line manager' (getline gets one token)
             bool more{ true }, EOL{ false };
+
+            // line : extracted token
             std::string line{};
+
+            // pos : position in extracted char array
             size_t pos{ 0 };
 
+            // read line, extract token
             std::getline(ifs, line);
-
             std::string token = ut.extractToken(line, pos, more);
 
+            // find the station that matches the first token
             auto it = std::find_if(begin(stations), end(stations), [=](const Workstation* station)
                {
                   return (station->getItemName() == token);
                });
 
+            // get index of matching station
             activeStn = it - begin(stations);
 
+            // if another token exists
             if (more) {
 
                token = ut.extractToken(line, pos, more);
@@ -53,29 +66,21 @@ namespace sdds {
                nextStn = it2 - begin(stations);
 
             }
+            // if another token does not exist
+            // this object is the last in the line
             else { EOL = true; }
 
+            // if this object is the end of the line, the next station is a null pointer
             stations[activeStn]->setNextStation((EOL) ? nullptr : stations[nextStn]);
-            
+
+            // add to active line : 
+            // the new object that references next object in the line
             m_activeLine.push_back(stations[activeStn]);
-            
-            /*
 
-            bool unique = std::none_of(begin(stations), end(stations), [=](const Workstation* station)
-               {
-                  auto* ptr = station->getNextStation();
-                  return (stations[activeStn]->getItemName() == ((ptr) ? ptr->getItemName() : ""));
-               });
-
-            if (unique) {
-               m_firstStation = stations[activeStn];
-            }
-
-            */
          }
 
-         // search with each station
-
+         // this search finds the station with no previous station
+         // then sets the found station to m_firstStation
          auto it = std::find_if(begin(stations), end(stations), [=](const Workstation* station)
             {
                bool unique = std::none_of(begin(stations), end(stations), [=](const Workstation* station2)
@@ -88,7 +93,10 @@ namespace sdds {
 
          size_t first = it - begin(stations);
 
+         // set first station
          m_firstStation = stations[first];
+
+         m_cntCustomerOrder = g_pending.size();
 
       }
       catch (...) {
@@ -98,30 +106,56 @@ namespace sdds {
 
    void LineManager::reorderStations() {
 
-      Workstation* node_1{};
-      Workstation* node_2{};
+      Workstation* activeStn{};
+      Workstation* nextStn{};
 
-      std::vector<Workstation*> temp;
+      std::vector<Workstation*> ordered_stations;
 
-      node_1 = m_firstStation;
-      node_2 = node_1->getNextStation();
+      activeStn = m_firstStation;
+      nextStn = activeStn->getNextStation();
 
-      m_firstStation->display(std::cout);
       
-      while (node_2) {
-         
-         temp.push_back(node_2);
-         node_1 = node_2;
-         node_2 = node_1->getNextStation();
+      ordered_stations.push_back(activeStn);
+
+      while (nextStn) {
+
+         ordered_stations.push_back(nextStn);
+         activeStn = nextStn;
+         nextStn = activeStn->getNextStation();
       }
 
-      m_activeLine = temp;
+      m_activeLine = ordered_stations;
    }
 
    bool LineManager::run(std::ostream& os) {
-      static unsigned calls = 0;
+
+      static size_t calls = 0;
+      calls++;
+      if (calls == 6) {
+         int x = 0;
+      }
       os << "Line Manager Iteration: " << calls << std::endl;
-      return true;
+
+      // throws here
+      if (g_pending.size()) {
+         *m_firstStation += std::move(g_pending.front());
+         g_pending.pop_front();
+      }
+      
+      if (calls == 20) {
+         int x = 0;
+      }
+      
+      
+      for (Workstation* e : m_activeLine) {
+         e->fill(os);
+      }
+
+      for (Workstation* e : m_activeLine) {
+         e->attemptToMoveOrder();
+      }
+
+      return m_cntCustomerOrder == g_completed.size() + g_incomplete.size();
    }
 
    void LineManager::display(std::ostream& os) const {

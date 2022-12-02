@@ -142,7 +142,7 @@
   <ItemGroup>
     <ClCompile Include="CustomerOrder.cpp" />
     <ClCompile Include="LineManager.cpp" />
-    <ClCompile Include="ms3.cpp" />
+    <ClCompile Include="ms3_edited.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Workstation.cpp" />
@@ -160,6 +160,9 @@
     <Text Include="ms3_output.txt" />
     <Text Include="Stations1.txt" />
     <Text Include="Stations2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="flowchart.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

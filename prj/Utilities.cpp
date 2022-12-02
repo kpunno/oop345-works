@@ -56,7 +56,7 @@ namespace sdds {
    }
 
    std::string& Utilities::eraseWhiteSpace(std::string& str) {
-      unsigned int i = 0;
+      size_t i = 0;
       if (str != "") {
          while (str[i] == ' ') {
             str.erase(i, 1);

@@ -27,7 +27,7 @@
     <ClCompile Include="Workstation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ms3.cpp">
+    <ClCompile Include="ms3_edited.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LineManager.cpp">
@@ -57,5 +57,10 @@
     <Text Include="Stations2.txt" />
     <Text Include="ms3_output.txt" />
     <Text Include="AssemblyLine.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="flowchart.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

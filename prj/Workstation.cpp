@@ -13,12 +13,30 @@ namespace sdds {
 
    void Workstation::fill(std::ostream& os) {
       if (m_orders.size()) {
-         
+         m_orders.front().fillItem(*this, os);
       }
    }
 
    bool Workstation::attemptToMoveOrder() {
-      return false;
+      bool result = false;
+      if (m_orders.size()) {
+         if (m_orders.front().isItemFilled(getItemName()) || !getQuantity()) {
+            result = true;
+            if (m_pNextStation) {
+               *m_pNextStation += std::move(m_orders.front());
+            }
+            else {
+               if (m_orders.front().isOrderFilled()) {
+                  g_completed.push_back(std::move(m_orders.front()));
+               }
+               else {
+                  g_incomplete.push_back(std::move(m_orders.front()));
+               }
+            }
+            m_orders.pop_front();
+         }
+      }
+      return result;
    }
 
    void Workstation::setNextStation(Workstation* station) {
@@ -32,14 +50,13 @@ namespace sdds {
    void Workstation::display(std::ostream& os) const {
       os << getItemName();
       os << " --> ";
-      os << (m_pNextStation != nullptr ? m_pNextStation->getItemName() : "End of line");
+      os << (m_pNextStation != nullptr ? m_pNextStation->getItemName() : "End of Line");
       os << std::endl;
    }
 
    Workstation& Workstation::operator+=(CustomerOrder&& newOrder) {
-      // temporary
-      Workstation ws("hello");
-      return ws;
+      m_orders.push_back(std::move(newOrder));
+      return *this;
    }
 
 }
