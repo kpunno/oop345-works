@@ -1,6 +1,3 @@
-## OOP-345 WORKSHOPS
+## OOP-345 Workshops and Project
 
-Kristjan Punno  
-150695211  
-kpunno@myseneca.ca  
-NFF  
+
